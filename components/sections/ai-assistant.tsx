@@ -33,9 +33,14 @@ export function AIAssistant() {
   const [input, setInput] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  const isFirstRender = useRef(true);
+useEffect(() => {
+  if (isFirstRender.current) {
+    isFirstRender.current = false;
+    return;
+  }
+  bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+}, [messages]);
 
   const send = (text: string) => {
     if (!text.trim()) return;
