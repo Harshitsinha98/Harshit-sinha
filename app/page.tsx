@@ -15,12 +15,13 @@ import { GithubSection } from "@/components/sections/github";
 import { ResumeSection } from "@/components/sections/resume";
 import { AIAssistant } from "@/components/sections/ai-assistant";
 import { Contact } from "@/components/sections/contact";
+import { LOADING_DURATION_MS } from "@/lib/constants";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 2800);
+    const t = setTimeout(() => setLoading(false), LOADING_DURATION_MS);
     return () => clearTimeout(t);
   }, []);
 

@@ -10,7 +10,7 @@ export function CaseStudies() {
         <SectionHeading
           eyebrow="Case Studies"
           title="How the work gets done"
-          description="Deep dives into the engineering decisions, architecture choices, and business outcomes behind each product."
+          description="Engineering decisions, architecture choices, and business outcomes behind each product."
         />
 
         <div className="mt-20 space-y-32">
@@ -29,19 +29,27 @@ export function CaseStudies() {
                 <div className="h-px flex-1 bg-gradient-to-r from-white/20 to-transparent" />
               </div>
 
-              <h3 className="font-display text-4xl font-bold tracking-tight md:text-5xl">{p.title}</h3>
+              <h3 className="font-display text-4xl font-bold tracking-tight md:text-5xl">
+                {p.title}
+              </h3>
 
               <div className="mt-10 grid gap-10 md:grid-cols-2">
                 <div>
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-blue-300/80">Challenge</h4>
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-blue-300/80">
+                    Challenge
+                  </h4>
                   <p className="mt-3 text-white/70">{p.problem}</p>
 
-                  <h4 className="mt-8 text-xs font-semibold uppercase tracking-wider text-purple-300/80">Solution</h4>
+                  <h4 className="mt-8 text-xs font-semibold uppercase tracking-wider text-purple-300/80">
+                    Solution
+                  </h4>
                   <p className="mt-3 text-white/70">{p.solution}</p>
                 </div>
 
                 <div>
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-white/60">Architecture & Decisions</h4>
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-white/60">
+                    Architecture & Decisions
+                  </h4>
                   <ul className="mt-3 space-y-2">
                     {p.features.map((f) => (
                       <li key={f} className="flex gap-3 text-sm text-white/70">
@@ -52,7 +60,9 @@ export function CaseStudies() {
                   </ul>
 
                   <div className="mt-8 rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-5">
-                    <h4 className="text-xs font-semibold uppercase tracking-wider text-emerald-300">Business Impact</h4>
+                    <h4 className="text-xs font-semibold uppercase tracking-wider text-emerald-300">
+                      Business Impact
+                    </h4>
                     <p className="mt-2 text-sm font-medium text-white/90">{p.impact}</p>
                   </div>
                 </div>

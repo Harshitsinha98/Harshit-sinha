@@ -1,31 +1,27 @@
 "use client";
-import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Github } from "lucide-react";
 import { personal } from "@/lib/data";
 import { SectionHeading } from "@/components/shared/section-heading";
 
+const GRID_ITEMS = 140;
+
+// Deterministic pseudo-random based on index (no Math.random at render)
+function seedRand(i: number) {
+  const x = Math.sin(i + 1) * 10000;
+  return x - Math.floor(x);
+}
+
 export function GithubSection() {
-  const [mounted, setMounted] = useState(false);
-
-  // Colors ko server-side par random mat rakho, 
-  // isse hydration error aayega.
-  const boxes = useMemo(() => {
-    return Array.from({ length: 140 }).map(() => Math.random());
-  }, []);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <section className="relative py-32">
       <div className="mx-auto max-w-6xl px-6">
         <SectionHeading
           eyebrow="Open Source"
           title="Code in the wild"
-          description="My GitHub — where the experiments, libraries, and tools live."
+          description="My GitHub — where experiments, libraries, and tools live."
         />
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -34,6 +30,7 @@ export function GithubSection() {
           className="mt-12 glass overflow-hidden rounded-2xl"
         >
           <div className="grid gap-0 md:grid-cols-2">
+            {/* Profile */}
             <div className="p-8">
               <div className="flex items-center gap-3">
                 <Github size={28} />
@@ -42,6 +39,7 @@ export function GithubSection() {
                   <p className="text-xs text-white/40">github.com/Harshitsinha98</p>
                 </div>
               </div>
+
               <div className="mt-8 grid grid-cols-3 gap-4">
                 {[
                   { label: "Repos", value: "20+" },
@@ -54,6 +52,7 @@ export function GithubSection() {
                   </div>
                 ))}
               </div>
+
               <a
                 href={personal.github}
                 target="_blank"
@@ -64,26 +63,30 @@ export function GithubSection() {
                 Visit GitHub
               </a>
             </div>
+
+            {/* Heatmap */}
             <div className="border-t border-white/5 bg-black/40 p-8 md:border-l md:border-t-0">
-              <p className="text-xs font-semibold uppercase tracking-wider text-white/40">Contribution Activity</p>
+              <p className="text-xs font-semibold uppercase tracking-wider text-white/40">
+                Contribution Activity
+              </p>
               <div className="mt-4 grid grid-cols-[repeat(20,1fr)] gap-1">
-                {boxes.map((intensity, i) => {
-                  const bg = !mounted
-                    ? "bg-white/5" // Default color jab tak mount nahi hota
-                    : intensity > 0.75
-                    ? "bg-purple-500/80"
-                    : intensity > 0.5
-                    ? "bg-purple-500/50"
-                    : intensity > 0.25
-                    ? "bg-purple-500/25"
-                    : "bg-white/5";
-                  
+                {Array.from({ length: GRID_ITEMS }).map((_, i) => {
+                  const intensity = seedRand(i);
+                  const bg =
+                    intensity > 0.75
+                      ? "bg-purple-500/80"
+                      : intensity > 0.5
+                      ? "bg-purple-500/50"
+                      : intensity > 0.25
+                      ? "bg-purple-500/25"
+                      : "bg-white/5";
                   return (
                     <motion.div
                       key={i}
                       initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: i * 0.005, duration: 0.3 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.004, duration: 0.3 }}
                       className={`aspect-square rounded-sm ${bg}`}
                     />
                   );

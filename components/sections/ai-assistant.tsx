@@ -1,36 +1,48 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Send, User, Bot } from "lucide-react";
 import { SectionHeading } from "@/components/shared/section-heading";
 
 const sampleQA: Record<string, string> = {
   skills:
-    "Harshit specializes in Next.js, TypeScript, React, Node.js, and PostgreSQL. He also works with AWS, Docker, and AI/automation tooling like OpenAI and n8n.",
+    "Harshit specialises in Next.js, TypeScript, React, Node.js, and PostgreSQL — plus cloud infra on AWS/Azure, Python automation, RPA, and AI tooling like OpenAI API and LangChain.",
   projects:
-    "5+ shipped products including BreakIQ (real-time monitoring), a Lead Management System, Saran Tax Solution, Pragat Hanuman Ji, and a jewelry ecommerce platform in progress.",
+    "5+ shipped products: a Lead Management System, BreakIQ (real-time workforce monitoring), Saran Tax Solution, Pragat Hanuman Ji (temple platform), and a jewelry ecommerce store in progress.",
   experience:
-    "Software Engineer at Capgemini since 2023, plus independent client work shipping production software for 3 active clients.",
+    "Full Stack Product Engineer (freelance, 2022–present) + Technical Operations Lead at Capgemini (Apr 2024–present), where he builds automation workflows and leads cross-functional engineering delivery. Previously Infrastructure & Ops Engineer at Indus Towers.",
   services:
     "Custom web apps, business automation, SaaS MVPs, ecommerce platforms, and ongoing engineering partnerships.",
-  hire:
-    "Email sinhaharshit67@gmail.com or use the contact form below. Currently accepting new projects.",
+  hire: `Email ${
+    "sinhaharshit67@gmail.com"
+  } or use the contact form below. Currently accepting new projects.`,
+  automation:
+    "Harshit has hands-on experience with Python scripting, RPA tools, n8n workflow automation, PowerShell, and AI/chatbot integrations deployed at enterprise scale.",
+  tech: "Frontend: Next.js, React, TypeScript, Tailwind. Backend: Node.js, Express, Spring Boot. DB: PostgreSQL, MongoDB. Cloud: AWS, Azure, Vercel, Docker. AI: Python, LangChain, OpenAI.",
 };
 
-const suggestions = ["skills", "projects", "experience", "services", "hire"];
+const suggestions = ["skills", "projects", "experience", "automation", "hire"];
 
 export function AIAssistant() {
   const [messages, setMessages] = useState<{ role: "user" | "bot"; text: string }[]>([
-    { role: "bot", text: "Hi 👋 Ask me anything about Harshit — his skills, projects, experience, or services." },
+    {
+      role: "bot",
+      text: "Hi 👋 Ask me anything about Harshit — skills, projects, experience, automation work, or how to hire.",
+    },
   ]);
   const [input, setInput] = useState("");
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const send = (text: string) => {
     if (!text.trim()) return;
     const key = Object.keys(sampleQA).find((k) => text.toLowerCase().includes(k));
     const reply = key
       ? sampleQA[key]
-      : "Great question! Try asking about skills, projects, experience, services, or how to hire.";
+      : "Great question! Try asking about skills, projects, experience, automation, or how to hire Harshit.";
     setMessages((m) => [...m, { role: "user", text }, { role: "bot", text: reply }]);
     setInput("");
   };
@@ -51,14 +63,16 @@ export function AIAssistant() {
           transition={{ duration: 0.7 }}
           className="mt-12 glass rounded-2xl"
         >
+          {/* Header */}
           <div className="flex items-center gap-2 border-b border-white/5 px-5 py-4">
             <Sparkles size={16} className="text-purple-400" />
             <span className="text-sm font-medium">Harshit AI · live</span>
             <span className="ml-auto h-2 w-2 rounded-full bg-emerald-400" />
           </div>
 
+          {/* Messages */}
           <div className="max-h-[400px] space-y-4 overflow-y-auto p-6">
-            <AnimatePresence>
+            <AnimatePresence initial={false}>
               {messages.map((m, i) => (
                 <motion.div
                   key={i}
@@ -77,7 +91,7 @@ export function AIAssistant() {
                   </div>
                   <div
                     className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm ${
-                      m.role === "user" ? "bg-white/8 text-white" : "bg-white/4 text-white/85"
+                      m.role === "user" ? "bg-white/[0.08] text-white" : "bg-white/[0.04] text-white/85"
                     }`}
                   >
                     {m.text}
@@ -85,8 +99,10 @@ export function AIAssistant() {
                 </motion.div>
               ))}
             </AnimatePresence>
+            <div ref={bottomRef} />
           </div>
 
+          {/* Input */}
           <div className="border-t border-white/5 p-4">
             <div className="mb-3 flex flex-wrap gap-2">
               {suggestions.map((s) => (
@@ -99,26 +115,21 @@ export function AIAssistant() {
                 </button>
               ))}
             </div>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                send(input);
-              }}
-              className="flex gap-2"
-            >
+            <div className="flex gap-2">
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && send(input)}
                 placeholder="Ask me anything about Harshit..."
                 className="flex-1 rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm placeholder:text-white/30 focus:border-purple-500/50 focus:outline-none"
               />
               <button
-                type="submit"
+                onClick={() => send(input)}
                 className="rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 px-4 transition hover:shadow-lg hover:shadow-purple-500/40"
               >
                 <Send size={16} />
               </button>
-            </form>
+            </div>
           </div>
         </motion.div>
       </div>

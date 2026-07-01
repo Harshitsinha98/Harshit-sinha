@@ -23,8 +23,9 @@ export function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative overflow-hidden rounded-3xl border border-white/8 bg-gradient-to-br from-elevated to-surface p-8 transition-all hover:border-white/15 md:p-10"
+              className="group relative overflow-hidden rounded-3xl border border-white/[0.08] bg-gradient-to-br from-elevated to-surface p-8 transition-all hover:border-white/15 md:p-10"
             >
+              {/* Accent glow */}
               <div
                 className={`absolute -right-32 -top-32 h-64 w-64 rounded-full bg-gradient-to-br ${p.accent} opacity-10 blur-3xl transition-opacity group-hover:opacity-25`}
               />
@@ -73,16 +74,18 @@ export function Projects() {
                       className="group/btn inline-flex items-center gap-2 rounded-xl bg-white/5 px-4 py-2.5 text-sm font-medium transition hover:bg-white/10"
                     >
                       Read case study
-                      <ArrowUpRight size={14} className="transition group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                      <ArrowUpRight
+                        size={14}
+                        className="transition group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
+                      />
                     </Link>
                   </div>
                 </div>
 
+                {/* Preview + features */}
                 <div className="lg:col-span-5">
-                  <div className="relative h-64 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-black to-elevated lg:h-full">
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-br ${p.accent} opacity-20`}
-                    />
+                  <div className="relative h-64 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-black to-elevated lg:h-48">
+                    <div className={`absolute inset-0 bg-gradient-to-br ${p.accent} opacity-20`} />
                     <div className="absolute inset-0 grid-bg opacity-30" />
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="text-center">
@@ -101,7 +104,7 @@ export function Projects() {
                     {p.features.slice(0, 4).map((f) => (
                       <div
                         key={f}
-                        className="rounded-lg border border-white/8 bg-white/[0.02] p-3 text-xs text-white/60"
+                        className="rounded-lg border border-white/[0.08] bg-white/[0.02] p-3 text-xs text-white/60"
                       >
                         ✦ {f}
                       </div>

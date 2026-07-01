@@ -4,9 +4,9 @@ export const personal = {
   company: "Capgemini",
   email: "sinhaharshit67@gmail.com",
   phone: "+91-9653043939",
-  github: "[github.com](https://github.com/Harshitsinha98)",
-  linkedin: "[linkedin.com](https://www.linkedin.com/in/harshit-sinha98/)",
-  whatsapp: "[wa.me](https://wa.me/919653043939)",
+  github: "https://github.com/Harshitsinha98",
+  linkedin: "https://www.linkedin.com/in/harshit-sinha98/",
+  whatsapp: "https://wa.me/919653043939",
   resumeUrl: "/resume.pdf",
 };
 
@@ -21,8 +21,8 @@ export const skills = {
   Frontend: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Redux"],
   Backend: ["Node.js", "Express", "NestJS", "Java", "Spring Boot", "REST APIs"],
   Database: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "Prisma"],
-  Cloud: ["AWS", "Vercel", "Docker", "CI/CD", "Nginx", "Linux"],
-  "AI & Automation": ["OpenAI API", "LangChain", "n8n", "Python", "Web Scraping"],
+  Cloud: ["AWS", "Azure", "Vercel", "Docker", "CI/CD", "Linux"],
+  "AI & Automation": ["Python", "OpenAI API", "RPA", "PowerShell", "n8n", "LangChain"],
 };
 
 export const projects = [
@@ -48,20 +48,20 @@ export const projects = [
   {
     id: "breakiq",
     title: "BreakIQ",
-    tagline: "Real-time break monitoring for agents & supervisors",
+    tagline: "Real-time workforce monitoring for teams & supervisors",
     problem:
-      "BPO supervisors had no visibility into break compliance, causing SLA breaches and payroll disputes.",
+      "Supervisors had no visibility into team compliance, causing SLA breaches and operational disputes.",
     solution:
-      "Live break tracking dashboard with policy enforcement, alerts, and historical reporting per agent.",
+      "Live status-tracking dashboard with policy enforcement, threshold alerts, and historical reporting per agent.",
     features: [
       "Live agent status board",
-      "Configurable break policies",
+      "Configurable policy rules",
       "Threshold alerts to supervisors",
       "Shift-wise analytics",
       "Audit logs",
     ],
     stack: ["React", "Node.js", "WebSockets", "MongoDB", "Express"],
-    impact: "Reduced unplanned break overages by 60%. Saved 12+ supervisor hours/week.",
+    impact: "Reduced unplanned overages by 60%. Saved 12+ supervisor hours/week.",
     accent: "from-purple-500 to-pink-500",
   },
   {
@@ -101,29 +101,61 @@ export const projects = [
   },
 ];
 
+// ─── Experience: real data, framed around engineering impact ──────────────────
+
 export const experience = [
-  {
-    company: "Capgemini",
-    role: "Software Engineer",
-    period: "2023 — Present",
-    location: "India",
-    bullets: [
-      "Building enterprise-grade applications for Fortune 500 clients",
-      "Architecting scalable microservices and modern frontends",
-      "Driving code quality and engineering best practices",
-    ],
-  },
   {
     company: "Independent / Freelance",
     role: "Full Stack Product Engineer",
-    period: "2023 — Present",
+    period: "2022 — Present",
     location: "Remote",
     bullets: [
-      "Shipped 5+ production products for 3 active clients",
-      "End-to-end ownership: discovery → design → ship → maintain",
-      "Multiple products currently in active pipeline",
+      "Shipped 5+ production products end-to-end — discovery, design, build, and maintenance",
+      "Built Lead Management System, BreakIQ, Saran Tax Solution, and more for active clients",
+      "Full ownership: architecture decisions, database design, deployment, and iteration",
+      "Multiple products currently in active pipeline across e-commerce, fintech, and community",
     ],
   },
+  {
+    company: "Capgemini",
+    role: "Technical Operations Lead",
+    period: "Apr 2024 — Present",
+    location: "India",
+    bullets: [
+      "Designed and deployed automated workflows using Python & RPA, cutting manual effort significantly",
+      "Built data analytics pipelines (Python, MS Excel macros) to surface KPI trends across operations",
+      "Led AI/chatbot integration projects to optimize end-user resolution journeys",
+      "Coordinated with L3 and cross-functional engineering teams on critical incident resolution",
+      "Architected process-improvement frameworks adopted across multiple global client accounts",
+    ],
+  },
+  {
+    company: "Indus Towers",
+    role: "Infrastructure & Operations Engineer",
+    period: "Dec 2022 — Jan 2024",
+    location: "India",
+    bullets: [
+      "Managed operations for 150+ distributed infrastructure nodes — 99.9% uptime target",
+      "Applied predictive analytics and Root Cause Analysis to eliminate recurring systemic failures",
+      "Led transition to an autonomous smart-operations model reducing manual intervention by 40%",
+      "Optimized energy consumption through data-driven resource analysis and strategic planning",
+    ],
+  },
+];
+
+export const education = [
+  {
+    degree: "B.Tech — Electronics & Communication Engineering",
+    school: "BBDNITM, Lucknow",
+    year: "2022",
+  },
+];
+
+export const certifications = [
+  "Python Data Structures — Coursera",
+  "Google Workspace Advanced Administration",
+  "Business Transformation with Google Cloud",
+  "ITIL Foundation Principles",
 ];
 
 export const valueProps = [
@@ -153,17 +185,16 @@ export const valueProps = [
     icon: "Sparkles",
   },
   {
-    title: "Robust Backend",
-    desc: "Production-hardened APIs, databases, and infrastructure.",
-    icon: "Server",
+    title: "Automation Mindset",
+    desc: "If it can be automated, it will be — Python, RPA, or n8n.",
+    icon: "Bot",
   },
 ];
 
 export const navLinks = [
-  { label: "Projects", href: "/projects" },
-  { label: "Case Studies", href: "/case-studies" },
-  { label: "Demo Lab", href: "/demo-lab" },
-  { label: "Resume", href: "/resume" },
-  { label: "Contact", href: "/contact" },
+  { label: "Work", href: "#projects" },
+  { label: "Lab", href: "#demo-lab" },
+  { label: "About", href: "#about" },
+  { label: "Resume", href: "#resume" },
+  { label: "Contact", href: "#contact" },
 ];
-

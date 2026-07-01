@@ -22,7 +22,7 @@ export function DemoLab() {
         <SectionHeading
           eyebrow="Product Demo Lab"
           title="A live showroom"
-          description="Step inside the products. Click through, explore, and see how they're built — not just what they look like."
+          description="Step inside the products. Explore the features and architecture behind each build."
         />
 
         <div className="mt-16 grid gap-8 lg:grid-cols-12">
@@ -35,7 +35,7 @@ export function DemoLab() {
                   onClick={() => setActive(i)}
                   data-hover
                   className={`group relative w-full overflow-hidden rounded-xl p-4 text-left transition ${
-                    active === i ? "bg-white/8" : "hover:bg-white/4"
+                    active === i ? "bg-white/[0.08]" : "hover:bg-white/[0.04]"
                   }`}
                 >
                   {active === i && (
@@ -127,7 +127,7 @@ export function DemoLab() {
                         </div>
 
                         <div className="mt-6 grid grid-cols-3 gap-3">
-                          {["Active", "Live", "Stable"].map((s, i) => (
+                          {["Active", "Live", "Stable"].map((s) => (
                             <div key={s} className="rounded-lg bg-white/5 p-3 text-center">
                               <div className="font-display text-lg font-bold text-emerald-300">●</div>
                               <p className="mt-1 text-xs text-white/50">{s}</p>
@@ -140,7 +140,7 @@ export function DemoLab() {
                 </AnimatePresence>
               </div>
 
-              {/* Footer details */}
+              {/* Footer bar */}
               <div className="border-t border-white/5 p-5">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <div className="flex items-center gap-2 text-xs text-white/40">
