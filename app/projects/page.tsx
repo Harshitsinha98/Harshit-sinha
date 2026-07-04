@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { ArrowUpRight, ExternalLink, Filter, Sparkles } from "lucide-react";
+import { ArrowUpRight, ExternalLink, Filter, Sparkles, Clock } from "lucide-react";
 import { projects } from "@/lib/data";
 import { SectionHeading } from "@/components/shared/section-heading";
 
@@ -130,42 +130,65 @@ export default function ProjectsPage() {
                 />
 
                 {/* Preview */}
-                <div className="relative h-52 overflow-hidden bg-gradient-to-br from-black to-elevated">
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${p.accent} opacity-15 transition-opacity duration-500 group-hover:opacity-35`}
-                  />
-                  <div className="absolute inset-0 grid-bg opacity-30" />
-
-                  {/* Floating particles */}
-                  <motion.div
-                    animate={{ y: [0, -8, 0], opacity: [0.2, 0.5, 0.2] }}
-                    transition={{ duration: 4, repeat: Infinity, delay: i * 0.3 }}
-                    className="absolute left-[20%] top-[30%] h-1 w-1 rounded-full bg-white/40"
-                  />
-                  <motion.div
-                    animate={{ y: [0, -12, 0], opacity: [0.15, 0.4, 0.15] }}
-                    transition={{ duration: 5, repeat: Infinity, delay: i * 0.5 }}
-                    className="absolute right-[25%] top-[50%] h-1.5 w-1.5 rounded-full bg-white/30"
-                  />
-
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.div
-                      whileHover={{ scale: 1.15, rotate: 3 }}
-                      className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${p.accent} font-display text-2xl font-bold shadow-2xl ring-1 ring-white/10 transition-transform`}
+                <div className="relative h-52 overflow-hidden bg-black">
+                  {p.liveUrl ? (
+                    <a
+                      href={p.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-hover
+                      className="group/prev absolute inset-0 block"
                     >
-                      {p.title.charAt(0)}
-                    </motion.div>
-                  </div>
+                      {/* Real live site, scaled as a thumbnail */}
+                      <div className="pointer-events-none absolute inset-0">
+                        <iframe
+                          src={p.liveUrl}
+                          title={`${p.title} live preview`}
+                          loading="lazy"
+                          tabIndex={-1}
+                          aria-hidden
+                          className="absolute left-0 top-0 origin-top-left border-0"
+                          style={{ width: "1280px", height: "860px", transform: "scale(0.42)" }}
+                        />
+                      </div>
+                      <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/80 via-transparent to-transparent p-4 opacity-0 transition group-hover/prev:opacity-100">
+                        <span className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 px-2.5 py-1 text-xs font-medium text-white backdrop-blur">
+                          Open live <ExternalLink size={12} />
+                        </span>
+                      </div>
+                    </a>
+                  ) : (
+                    <div className="absolute inset-0">
+                      <div className={`absolute inset-0 bg-gradient-to-br ${p.accent} opacity-15`} />
+                      <div className="absolute inset-0 grid-bg opacity-30" />
+                      <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+                        <div
+                          className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${p.accent} font-display text-2xl font-bold shadow-2xl ring-1 ring-white/10`}
+                        >
+                          {p.title.charAt(0)}
+                        </div>
+                        <span className="inline-flex items-center gap-1 font-mono text-[10px] text-amber-300/80">
+                          <Clock size={10} /> launching soon
+                        </span>
+                      </div>
+                    </div>
+                  )}
 
-                  {/* Category badge */}
-                  <div className="absolute right-3 top-3">
+                  {/* Category + status badges */}
+                  <div className="absolute right-3 top-3 flex gap-1.5">
                     <span className="rounded-full bg-black/60 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-white/70 backdrop-blur-md ring-1 ring-white/10">
                       {categoryMap[p.id] || "Project"}
                     </span>
+                    {p.status === "live" ? (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-black/60 px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-emerald-300 backdrop-blur-md ring-1 ring-emerald-500/20">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Live
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-black/60 px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-amber-300 backdrop-blur-md ring-1 ring-amber-500/20">
+                        <Clock size={9} /> Soon
+                      </span>
+                    )}
                   </div>
-
-                  {/* Bottom fade */}
-                  <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-elevated to-transparent" />
                 </div>
 
                 {/* Content */}

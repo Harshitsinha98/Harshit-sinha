@@ -27,7 +27,7 @@ export function Skills() {
           description="From pixel-perfect frontends to production backends, cloud infrastructure, and AI automation."
         />
 
-        <div className="mt-16 grid auto-rows-fr gap-4 md:grid-cols-3 lg:grid-cols-6">
+        <div className="mt-16 grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {entries.map(([cat, items], i) => {
             const accent = accentCycle[i % accentCycle.length];
             const Icon = iconCycle[i % iconCycle.length];
@@ -38,12 +38,10 @@ export function Skills() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08, duration: 0.6 }}
-                className={`group relative overflow-hidden glass glass-hover rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 ${
-                  i === 0 ? "lg:col-span-2 lg:row-span-2" : ""
-                }`}
+                className="group relative overflow-hidden glass glass-hover rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1"
               >
                 <Icon
-                  size={i === 0 ? 72 : 48}
+                  size={48}
                   className="pointer-events-none absolute -bottom-3 -right-3 text-white/[0.04] transition-colors duration-500 group-hover:text-white/[0.07]"
                 />
 

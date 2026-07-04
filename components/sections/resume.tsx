@@ -1,8 +1,15 @@
 "use client";
 import { motion } from "framer-motion";
-import { Download, Briefcase, CheckCircle2, BookOpen, Award } from "lucide-react";
-import { personal, skills, experience, education, certifications } from "@/lib/data";
+import Link from "next/link";
+import { Download, ArrowUpRight, FileText } from "lucide-react";
+import { personal } from "@/lib/data";
 import { SectionHeading } from "@/components/shared/section-heading";
+
+const highlights = [
+  "Full-stack — end-to-end ownership",
+  "Enterprise + startup experience",
+  "Automation & AI integration",
+];
 
 export function ResumeSection() {
   const initials = personal.name
@@ -12,23 +19,13 @@ export function ResumeSection() {
     .join("")
     .toUpperCase();
 
-  const allSkills = Object.values(skills).flat();
-  const shownSkills = allSkills.slice(0, 18);
-  const remaining = allSkills.length - shownSkills.length;
-
-  const stats = [
-    { value: "5+", label: "Products shipped" },
-    { value: "3", label: "Active engagements" },
-    { value: "3+", label: "Years of experience" },
-  ];
-
   return (
     <section id="resume" className="relative py-32">
-      <div className="mx-auto max-w-5xl px-6">
+      <div className="mx-auto max-w-4xl px-6">
         <SectionHeading
           eyebrow="Resume"
-          title="The credentials"
-          description="A snapshot of experience, skills, and what I bring to the table."
+          title="Want the one-pager?"
+          description="Everything above — experience, skills, and credentials — packed into a clean PDF."
         />
 
         <motion.div
@@ -36,19 +33,22 @@ export function ResumeSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mt-12 glass rounded-3xl p-8 md:p-12"
+          className="relative mt-12 overflow-hidden rounded-3xl border border-white/[0.08] bg-gradient-to-br from-elevated to-surface p-8 md:p-10"
         >
-          {/* Header */}
-          <div className="flex flex-col items-start justify-between gap-6 border-b border-white/10 pb-8 md:flex-row md:items-center">
+          {/* Accent glow */}
+          <div className="pointer-events-none absolute -right-24 -top-24 h-56 w-56 rounded-full bg-gradient-to-br from-blue-500/20 to-purple-600/20 opacity-40 blur-3xl" />
+
+          <div className="relative flex flex-col items-center gap-8 md:flex-row md:items-center md:justify-between">
+            {/* Identity */}
             <div className="flex items-center gap-4">
-              <div className="relative h-14 w-14 shrink-0">
+              <div className="relative h-16 w-16 shrink-0">
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 opacity-80 blur-sm" />
-                <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 font-display text-lg font-bold">
+                <div className="relative flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 font-display text-xl font-bold">
                   {initials}
                 </div>
               </div>
               <div>
-                <h3 className="font-display text-2xl font-bold md:text-3xl">{personal.name}</h3>
+                <h3 className="font-display text-2xl font-bold">{personal.name}</h3>
                 <p className="mt-1 text-sm text-white/60">
                   {personal.role} · {personal.company}
                 </p>
@@ -62,121 +62,46 @@ export function ResumeSection() {
               </div>
             </div>
 
-            <a
-              href={personal.resumeUrl}
-              download
-              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 px-5 py-3 text-sm font-medium transition hover:shadow-lg hover:shadow-purple-500/40"
-            >
-              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-              <Download size={16} className="relative" />
-              <span className="relative">Download PDF</span>
-            </a>
-          </div>
-
-          {/* Stats */}
-          <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
-            {stats.map((s) => (
-              <div
-                key={s.label}
-                className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-4 text-center transition hover:border-white/15 hover:bg-white/[0.04]"
+            {/* Actions */}
+            <div className="flex flex-col items-stretch gap-3 sm:flex-row md:flex-col">
+              <a
+                href={personal.resumeUrl}
+                download
+                className="group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-3.5 text-sm font-medium shadow-lg shadow-purple-500/20 transition hover:shadow-2xl hover:shadow-purple-500/40"
               >
-                <p className="font-display text-2xl font-bold text-gradient">{s.value}</p>
-                <p className="mt-1 text-xs text-white/50">{s.label}</p>
-              </div>
-            ))}
+                <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                <Download size={16} className="relative" />
+                <span className="relative">Download PDF</span>
+              </a>
+              <a
+                href={personal.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-6 py-3.5 text-sm font-medium text-white/80 transition hover:border-white/20 hover:bg-white/[0.06]"
+              >
+                <FileText size={16} />
+                View online
+              </a>
+            </div>
           </div>
 
-          {/* Body */}
-          <div className="mt-10 grid gap-10 md:grid-cols-2">
-            {/* Experience column */}
-            <div>
-              <h4 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-300">
-                <Briefcase size={12} />
-                Experience
-              </h4>
-              <div className="mt-4 space-y-5 border-l border-white/10 pl-5">
-                {experience.map((e) => (
-                  <div key={e.company} className="relative">
-                    <div className="absolute -left-[26px] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-background bg-gradient-to-br from-blue-500 to-purple-600" />
-                    <p className="font-medium leading-snug">{e.role}</p>
-                    <p className="text-sm text-white/60">{e.company}</p>
-                    <p className="mt-0.5 text-xs text-white/40">{e.period}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Education */}
-              <h4 className="mt-8 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-300">
-                <BookOpen size={12} />
-                Education
-              </h4>
-              <div className="mt-4 space-y-3 border-l border-white/10 pl-5">
-                {education.map((edu) => (
-                  <div key={edu.degree} className="relative">
-                    <div className="absolute -left-[26px] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-background bg-gradient-to-br from-blue-500 to-purple-600" />
-                    <p className="font-medium text-sm leading-snug">{edu.degree}</p>
-                    <p className="text-xs text-white/50">{edu.school} · {edu.year}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Skills + Highlights column */}
-            <div>
-              <h4 className="text-xs font-semibold uppercase tracking-wider text-purple-300">
-                Core Skills
-              </h4>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {shownSkills.map((s) => (
-                  <span
-                    key={s}
-                    className="rounded-lg border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70 transition hover:border-purple-500/40 hover:text-white"
-                  >
-                    {s}
-                  </span>
-                ))}
-                {remaining > 0 && (
-                  <span className="rounded-lg border border-dashed border-white/15 px-3 py-1 text-xs text-white/40">
-                    +{remaining} more
-                  </span>
-                )}
-              </div>
-
-              <h4 className="mt-6 text-xs font-semibold uppercase tracking-wider text-emerald-300">
-                Highlights
-              </h4>
-              <ul className="mt-3 space-y-2 text-sm text-white/70">
-                <li className="flex gap-2">
-                  <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-emerald-400" />
-                  5+ production products shipped end-to-end
-                </li>
-                <li className="flex gap-2">
-                  <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-emerald-400" />
-                  3 active client engagements
-                </li>
-                <li className="flex gap-2">
-                  <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-emerald-400" />
-                  Enterprise engineering at Capgemini
-                </li>
-                <li className="flex gap-2">
-                  <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-emerald-400" />
-                  Automation & AI integration (Python, RPA, LangChain)
-                </li>
-              </ul>
-
-              <h4 className="mt-6 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-purple-300">
-                <Award size={12} />
-                Certifications
-              </h4>
-              <ul className="mt-3 space-y-2">
-                {certifications.map((cert) => (
-                  <li key={cert} className="flex gap-2 text-xs text-white/60">
-                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-purple-400" />
-                    {cert}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Highlight chips + link back to the detail above */}
+          <div className="relative mt-8 flex flex-wrap items-center gap-2 border-t border-white/10 pt-6">
+            {highlights.map((h) => (
+              <span
+                key={h}
+                className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/70"
+              >
+                {h}
+              </span>
+            ))}
+            <Link
+              href="#experience"
+              className="group ml-auto inline-flex items-center gap-1.5 text-xs font-medium text-white/50 transition hover:text-white"
+            >
+              See full experience
+              <ArrowUpRight size={12} className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
           </div>
         </motion.div>
       </div>

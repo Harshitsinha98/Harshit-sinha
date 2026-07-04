@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ExternalLink, Clock } from "lucide-react";
 import { projects } from "@/lib/data";
 import { SectionHeading } from "@/components/shared/section-heading";
 
@@ -12,7 +12,7 @@ export function Projects() {
         <SectionHeading
           eyebrow="Selected Work"
           title="Products shipped, problems solved"
-          description="Real-world products serving real users. Each one started as a business problem, ended as a working system."
+          description="Real-world products serving real users — live and in production. Every preview below is the actual site, running right now."
         />
 
         <div className="mt-20 space-y-6">
@@ -32,10 +32,24 @@ export function Projects() {
 
               <div className="relative grid gap-8 lg:grid-cols-12">
                 <div className="lg:col-span-7">
-                  <div className="mb-3 flex items-center gap-2 font-mono text-xs text-white/40">
-                    <span>0{i + 1}</span>
-                    <span>/</span>
-                    <span>0{projects.length}</span>
+                  <div className="mb-3 flex items-center gap-3 font-mono text-xs text-white/40">
+                    <span>
+                      0{i + 1} / 0{projects.length}
+                    </span>
+                    {p.status === "live" ? (
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-0.5 text-emerald-300">
+                        <span className="relative flex h-1.5 w-1.5">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+                          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                        </span>
+                        LIVE
+                      </span>
+                    ) : (
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/25 bg-amber-500/10 px-2.5 py-0.5 text-amber-300">
+                        <Clock size={11} />
+                        COMING SOON
+                      </span>
+                    )}
                   </div>
                   <h3 className="font-display text-3xl font-semibold tracking-tight md:text-4xl">
                     {p.title}
@@ -68,12 +82,27 @@ export function Projects() {
                     ))}
                   </div>
 
-                  <div className="mt-8 flex gap-3">
+                  <div className="mt-8 flex flex-wrap gap-3">
+                    {p.liveUrl && (
+                      <a
+                        href={p.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-hover
+                        className={`group/btn inline-flex items-center gap-2 rounded-xl bg-gradient-to-r ${p.accent} px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-black/30 transition hover:brightness-110`}
+                      >
+                        Visit Live Site
+                        <ExternalLink
+                          size={14}
+                          className="transition group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
+                        />
+                      </a>
+                    )}
                     <Link
-                      href={`#case-${p.id}`}
+                      href="#demo-lab"
                       className="group/btn inline-flex items-center gap-2 rounded-xl bg-white/5 px-4 py-2.5 text-sm font-medium transition hover:bg-white/10"
                     >
-                      Read case study
+                      Open in showroom
                       <ArrowUpRight
                         size={14}
                         className="transition group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
@@ -82,23 +111,9 @@ export function Projects() {
                   </div>
                 </div>
 
-                {/* Preview + features */}
+                {/* Live preview thumbnail */}
                 <div className="lg:col-span-5">
-                  <div className="relative h-64 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-black to-elevated lg:h-48">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${p.accent} opacity-20`} />
-                    <div className="absolute inset-0 grid-bg opacity-30" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center">
-                        <div
-                          className={`mx-auto mb-3 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br ${p.accent} font-display text-xl font-bold`}
-                        >
-                          {p.title.charAt(0)}
-                        </div>
-                        <p className="font-mono text-xs text-white/50">PREVIEW</p>
-                      </div>
-                    </div>
-                    <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/60 to-transparent" />
-                  </div>
+                  <LivePreview project={p} />
 
                   <div className="mt-4 grid grid-cols-2 gap-3">
                     {p.features.slice(0, 4).map((f) => (
@@ -117,5 +132,57 @@ export function Projects() {
         </div>
       </div>
     </section>
+  );
+}
+
+function LivePreview({ project: p }: { project: (typeof projects)[number] }) {
+  if (!p.liveUrl) {
+    // Coming soon — elegant placeholder consistent with live cards
+    return (
+      <div className="relative h-64 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-black to-elevated lg:h-48">
+        <div className={`absolute inset-0 bg-gradient-to-br ${p.accent} opacity-20`} />
+        <div className="absolute inset-0 grid-bg opacity-30" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-medium text-amber-300">
+            <Clock size={12} /> Launching Soon
+          </span>
+          <p className="font-mono text-xs text-white/40">Q3 — beta preview coming</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <a
+      href={p.liveUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-hover
+      className="group/prev relative block h-64 overflow-hidden rounded-2xl border border-white/10 bg-black lg:h-48"
+    >
+      {/* Live desktop render, scaled down as a thumbnail (non-interactive here) */}
+      <div className="pointer-events-none absolute inset-0">
+        <iframe
+          src={p.liveUrl}
+          title={`${p.title} live preview`}
+          loading="lazy"
+          tabIndex={-1}
+          aria-hidden
+          className="absolute left-0 top-0 origin-top-left border-0"
+          style={{ width: "1280px", height: "820px", transform: "scale(0.42)" }}
+        />
+      </div>
+      {/* Hover overlay */}
+      <div className="absolute inset-0 flex items-end justify-between bg-gradient-to-t from-black/80 via-transparent to-transparent p-4 opacity-0 transition group-hover/prev:opacity-100">
+        <span className="font-mono text-xs text-white/70">{p.displayUrl}</span>
+        <span className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 px-2.5 py-1 text-xs font-medium text-white backdrop-blur">
+          Open <ExternalLink size={12} />
+        </span>
+      </div>
+      {/* Persistent live badge */}
+      <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-black/60 px-2.5 py-0.5 font-mono text-[10px] text-emerald-300 backdrop-blur">
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> LIVE
+      </span>
+    </a>
   );
 }

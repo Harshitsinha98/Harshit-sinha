@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useEffect } from "react";
 import {
   ArrowLeft,
   Play,
@@ -13,6 +14,9 @@ import {
   Zap,
   Globe,
   ChevronRight,
+  ExternalLink,
+  Clock,
+  RotateCw,
 } from "lucide-react";
 import { projects } from "@/lib/data";
 
@@ -20,8 +24,15 @@ export default function DemoLabPage() {
   const [active, setActive] = useState(0);
   const [view, setView] = useState<"desktop" | "tablet" | "mobile">("desktop");
   const [tab, setTab] = useState<"preview" | "features" | "stack">("preview");
+  const [loading, setLoading] = useState(true);
+  const [reloadKey, setReloadKey] = useState(0);
 
   const project = projects[active];
+
+  // Reset the loading shimmer whenever the live preview target changes.
+  useEffect(() => {
+    if (project.liveUrl && tab === "preview") setLoading(true);
+  }, [active, view, tab, reloadKey, project.liveUrl]);
 
   const viewWidths = {
     desktop: "max-w-4xl",
@@ -216,43 +227,69 @@ export default function DemoLabPage() {
                   <div className="h-3 w-3 rounded-full bg-yellow-500/70 transition hover:bg-yellow-500" />
                   <div className="h-3 w-3 rounded-full bg-emerald-500/70 transition hover:bg-emerald-500" />
                   <div className="ml-4 flex items-center gap-2 rounded-lg bg-black/40 px-3 py-1.5 ring-1 ring-white/[0.06]">
-                    <Globe size={10} className="text-white/30" />
+                    {project.liveUrl ? (
+                      <span className="text-[10px] text-emerald-400/70">🔒</span>
+                    ) : (
+                      <Globe size={10} className="text-white/30" />
+                    )}
                     <span className="font-mono text-xs text-white/50">
-                      {project.id}.harshit.dev
+                      {project.displayUrl}
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1 rounded-lg bg-white/[0.04] p-1 ring-1 ring-white/[0.06]">
-                  {[
-                    { id: "desktop" as const, Icon: Monitor },
-                    { id: "tablet" as const, Icon: Tablet },
-                    { id: "mobile" as const, Icon: Smartphone },
-                  ].map(({ id, Icon }) => (
+                <div className="flex items-center gap-2">
+                  {project.liveUrl && tab === "preview" && (
                     <button
-                      key={id}
-                      onClick={() => setView(id)}
-                      className="relative rounded-md p-1.5 transition"
+                      onClick={() => setReloadKey((k) => k + 1)}
+                      title="Reload preview"
+                      className="rounded-md p-1.5 text-white/40 transition hover:text-white"
                     >
-                      {view === id && (
-                        <motion.div
-                          layoutId="viewport-active"
-                          className="absolute inset-0 rounded-md bg-white/10"
-                          transition={{
-                            type: "spring",
-                            bounce: 0.2,
-                            duration: 0.4,
-                          }}
-                        />
-                      )}
-                      <Icon
-                        size={14}
-                        className={`relative z-10 transition ${
-                          view === id ? "text-white" : "text-white/40"
-                        }`}
-                      />
+                      <RotateCw size={14} />
                     </button>
-                  ))}
+                  )}
+                  <div className="flex items-center gap-1 rounded-lg bg-white/[0.04] p-1 ring-1 ring-white/[0.06]">
+                    {[
+                      { id: "desktop" as const, Icon: Monitor },
+                      { id: "tablet" as const, Icon: Tablet },
+                      { id: "mobile" as const, Icon: Smartphone },
+                    ].map(({ id, Icon }) => (
+                      <button
+                        key={id}
+                        onClick={() => setView(id)}
+                        className="relative rounded-md p-1.5 transition"
+                      >
+                        {view === id && (
+                          <motion.div
+                            layoutId="viewport-active"
+                            className="absolute inset-0 rounded-md bg-white/10"
+                            transition={{
+                              type: "spring",
+                              bounce: 0.2,
+                              duration: 0.4,
+                            }}
+                          />
+                        )}
+                        <Icon
+                          size={14}
+                          className={`relative z-10 transition ${
+                            view === id ? "text-white" : "text-white/40"
+                          }`}
+                        />
+                      </button>
+                    ))}
+                  </div>
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Open full site in new tab"
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-white/10 px-2.5 py-1.5 text-xs font-medium transition hover:bg-white/20"
+                    >
+                      Open <ExternalLink size={12} />
+                    </a>
+                  )}
                 </div>
               </div>
 
@@ -310,81 +347,63 @@ export default function DemoLabPage() {
                     transition={{ duration: 0.4, ease: "easeInOut" }}
                     className={`relative mx-auto w-full ${viewWidths[view]} transition-all duration-500`}
                   >
-                    {tab === "preview" && (
-                      <div
-                        className={`relative overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br ${project.accent} p-[1px] shadow-2xl shadow-black/40`}
-                      >
-                        <div className="rounded-[11px] bg-black/85 p-8 backdrop-blur">
-                          {/* Mock app header */}
-                          <div className="mb-6 flex items-center justify-between border-b border-white/5 pb-4">
-                            <div className="flex items-center gap-2">
-                              <div
-                                className={`h-7 w-7 rounded-lg bg-gradient-to-br ${project.accent} ring-1 ring-white/10`}
-                              />
-                              <span className="font-display font-semibold">
-                                {project.title}
-                              </span>
-                            </div>
-                            <div className="flex gap-2">
-                              <div className="h-7 w-16 rounded-md bg-white/5" />
-                              <div className="h-7 w-7 rounded-md bg-white/10" />
-                            </div>
-                          </div>
-
-                          {/* Mock metrics row */}
-                          <div className="mb-6 grid grid-cols-3 gap-3">
-                            {["Active", "Today", "Total"].map((s, i) => (
-                              <motion.div
-                                key={s}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.1 + i * 0.1 }}
-                                className="rounded-lg bg-white/5 p-3 ring-1 ring-white/[0.05]"
-                              >
-                                <p className="text-xs text-white/40">{s}</p>
-                                <p className="mt-1 font-display text-xl font-bold text-gradient">
-                                  {(i + 1) * 247}
-                                </p>
-                              </motion.div>
-                            ))}
-                          </div>
-
-                          {/* Mock list */}
-                          <div className="space-y-2">
-                            {project.features.slice(0, 4).map((f, i) => (
-                              <motion.div
-                                key={f}
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.15 * i }}
-                                className="flex items-center gap-3 rounded-lg border border-white/5 bg-white/[0.02] p-3 transition-colors hover:bg-white/[0.04]"
-                              >
-                                <div
-                                  className={`h-8 w-8 rounded-md bg-gradient-to-br ${project.accent} opacity-60 ring-1 ring-white/10`}
-                                />
-                                <div className="flex-1">
-                                  <p className="text-sm text-white/85">{f}</p>
-                                  <div className="mt-1 h-1 w-full overflow-hidden rounded-full bg-white/5">
-                                    <motion.div
-                                      initial={{ width: 0 }}
-                                      animate={{
-                                        width: `${60 + i * 8}%`,
-                                      }}
-                                      transition={{
-                                        duration: 1.2,
-                                        delay: 0.3 + i * 0.1,
-                                        ease: "easeOut",
-                                      }}
-                                      className={`h-full rounded-full bg-gradient-to-r ${project.accent}`}
-                                    />
-                                  </div>
+                    {tab === "preview" &&
+                      (project.liveUrl ? (
+                        <div
+                          className={`relative overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br ${project.accent} p-[1px] shadow-2xl shadow-black/40`}
+                        >
+                          <div className="overflow-hidden rounded-[11px] bg-black">
+                            <div
+                              className={`relative w-full ${
+                                view === "mobile"
+                                  ? "h-[660px]"
+                                  : view === "tablet"
+                                  ? "h-[640px]"
+                                  : "h-[560px]"
+                              }`}
+                            >
+                              {loading && (
+                                <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-black/85">
+                                  <div className="h-8 w-8 animate-spin rounded-full border-2 border-white/15 border-t-transparent" />
+                                  <p className="font-mono text-xs text-white/40">
+                                    Loading {project.displayUrl}…
+                                  </p>
                                 </div>
-                              </motion.div>
-                            ))}
+                              )}
+                              <iframe
+                                key={`${project.id}-${view}-${reloadKey}`}
+                                src={project.liveUrl}
+                                title={`${project.title} — live`}
+                                loading="lazy"
+                                onLoad={() => setLoading(false)}
+                                className="h-full w-full border-0 bg-white"
+                                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+                                referrerPolicy="no-referrer-when-downgrade"
+                              />
+                            </div>
                           </div>
+                          <p className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-black/60 px-3 py-1 font-mono text-[10px] text-white/50 backdrop-blur">
+                            Interactive live preview — click & scroll inside
+                          </p>
                         </div>
-                      </div>
-                    )}
+                      ) : (
+                        <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-white/10 bg-black/40 py-20 text-center">
+                          <div
+                            className={`inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${project.accent}`}
+                          >
+                            <Clock size={26} className="text-white" />
+                          </div>
+                          <h4 className="font-display text-2xl font-semibold">
+                            {project.title}
+                          </h4>
+                          <p className="max-w-md text-sm text-white/50">
+                            {project.solution}
+                          </p>
+                          <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-xs font-medium text-amber-300">
+                            Launching Soon · Beta planned Q3
+                          </span>
+                        </div>
+                      ))}
 
                     {tab === "features" && (
                       <div className="grid gap-3 sm:grid-cols-2">

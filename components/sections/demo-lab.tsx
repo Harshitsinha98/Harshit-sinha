@@ -1,13 +1,22 @@
 "use client";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Play, Monitor, Smartphone, Code2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Monitor, Smartphone, Code2, ExternalLink, Clock, RotateCw } from "lucide-react";
 import { projects } from "@/lib/data";
 import { SectionHeading } from "@/components/shared/section-heading";
 
 export function DemoLab() {
   const [active, setActive] = useState(0);
   const [view, setView] = useState<"desktop" | "mobile">("desktop");
+  const [loading, setLoading] = useState(true);
+  const [reloadKey, setReloadKey] = useState(0);
+
+  const current = projects[active];
+
+  // Show the loading shimmer whenever we switch project, viewport, or reload.
+  useEffect(() => {
+    if (current.liveUrl) setLoading(true);
+  }, [active, view, reloadKey, current.liveUrl]);
 
   return (
     <section id="demo-lab" className="relative overflow-hidden py-32">
@@ -20,9 +29,9 @@ export function DemoLab() {
 
       <div className="relative mx-auto max-w-7xl px-6">
         <SectionHeading
-          eyebrow="Product Demo Lab"
-          title="A live showroom"
-          description="Step inside the products. Explore the features and architecture behind each build."
+          eyebrow="Live Showroom"
+          title="Step inside the products"
+          description="These aren't mockups — each panel below is the real, production site running live. Switch projects, toggle desktop or mobile, and click straight through."
         />
 
         <div className="mt-16 grid gap-8 lg:grid-cols-12">
@@ -44,7 +53,14 @@ export function DemoLab() {
                       className="absolute inset-y-0 left-0 w-1 rounded-r bg-gradient-to-b from-blue-400 to-purple-500"
                     />
                   )}
-                  <p className="text-sm font-medium">{p.title}</p>
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-sm font-medium">{p.title}</p>
+                    {p.status === "live" ? (
+                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
+                    ) : (
+                      <Clock size={12} className="shrink-0 text-amber-300/70" />
+                    )}
+                  </div>
                   <p className="mt-0.5 text-xs text-white/40">{p.tagline}</p>
                 </button>
               ))}
@@ -55,18 +71,29 @@ export function DemoLab() {
           <div className="lg:col-span-9">
             <div className="glass overflow-hidden rounded-2xl">
               {/* Browser chrome */}
-              <div className="flex items-center justify-between border-b border-white/5 px-4 py-3">
-                <div className="flex items-center gap-2">
-                  <div className="h-3 w-3 rounded-full bg-red-500/70" />
-                  <div className="h-3 w-3 rounded-full bg-yellow-500/70" />
-                  <div className="h-3 w-3 rounded-full bg-emerald-500/70" />
-                  <div className="ml-4 rounded-md bg-black/40 px-3 py-1 font-mono text-xs text-white/50">
-                    {projects[active].id}.harshit.dev
+              <div className="flex items-center justify-between gap-3 border-b border-white/5 px-4 py-3">
+                <div className="flex min-w-0 items-center gap-2">
+                  <div className="h-3 w-3 shrink-0 rounded-full bg-red-500/70" />
+                  <div className="h-3 w-3 shrink-0 rounded-full bg-yellow-500/70" />
+                  <div className="h-3 w-3 shrink-0 rounded-full bg-emerald-500/70" />
+                  <div className="ml-2 flex min-w-0 items-center gap-2 rounded-md bg-black/40 px-3 py-1 font-mono text-xs text-white/50">
+                    <span className="text-emerald-400/70">🔒</span>
+                    <span className="truncate">{current.displayUrl}</span>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex shrink-0 items-center gap-1.5">
+                  {current.liveUrl && (
+                    <button
+                      onClick={() => setReloadKey((k) => k + 1)}
+                      title="Reload preview"
+                      className="rounded-md p-1.5 text-white/40 transition hover:text-white"
+                    >
+                      <RotateCw size={14} />
+                    </button>
+                  )}
                   <button
                     onClick={() => setView("desktop")}
+                    title="Desktop view"
                     className={`rounded-md p-1.5 transition ${
                       view === "desktop" ? "bg-white/10" : "text-white/40 hover:text-white"
                     }`}
@@ -75,69 +102,80 @@ export function DemoLab() {
                   </button>
                   <button
                     onClick={() => setView("mobile")}
+                    title="Mobile view"
                     className={`rounded-md p-1.5 transition ${
                       view === "mobile" ? "bg-white/10" : "text-white/40 hover:text-white"
                     }`}
                   >
                     <Smartphone size={14} />
                   </button>
+                  {current.liveUrl && (
+                    <a
+                      href={current.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Open full site in new tab"
+                      className="ml-1 inline-flex items-center gap-1.5 rounded-md bg-white/10 px-2.5 py-1.5 text-xs font-medium transition hover:bg-white/20"
+                    >
+                      Open <ExternalLink size={12} />
+                    </a>
+                  )}
                 </div>
               </div>
 
-              {/* Demo area */}
-              <div className="relative flex min-h-[480px] items-center justify-center bg-gradient-to-br from-black via-elevated to-black p-8">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={`${active}-${view}`}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.4 }}
-                    className={`w-full ${view === "mobile" ? "max-w-[320px]" : "max-w-3xl"}`}
+              {/* Live demo area */}
+              <div className="relative flex min-h-[560px] items-center justify-center bg-gradient-to-br from-black via-elevated to-black p-4 md:p-6">
+                {current.liveUrl ? (
+                  <div
+                    className={`relative mx-auto w-full transition-all duration-500 ${
+                      view === "mobile" ? "max-w-[390px]" : "max-w-full"
+                    }`}
                   >
                     <div
-                      className={`relative overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br ${projects[active].accent} p-1`}
+                      className={`relative overflow-hidden rounded-xl border border-white/10 bg-black shadow-2xl shadow-black/50 ${
+                        view === "mobile" ? "h-[640px]" : "h-[520px]"
+                      }`}
                     >
-                      <div className="rounded-lg bg-black/80 p-8 backdrop-blur">
-                        <div className="mb-6 flex items-center justify-between">
-                          <div>
-                            <p className="text-xs text-white/40">{projects[active].tagline}</p>
-                            <h4 className="mt-1 font-display text-2xl font-semibold">
-                              {projects[active].title}
-                            </h4>
-                          </div>
-                          <Play size={20} className="text-white/60" />
+                      {/* Loading shimmer */}
+                      {loading && (
+                        <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-black/80">
+                          <div
+                            className={`h-8 w-8 animate-spin rounded-full border-2 border-white/10 border-t-transparent bg-gradient-to-r ${current.accent} bg-clip-border`}
+                            style={{ borderTopColor: "transparent" }}
+                          />
+                          <p className="font-mono text-xs text-white/40">Loading {current.displayUrl}…</p>
                         </div>
-
-                        <div className="space-y-3">
-                          {projects[active].features.slice(0, 3).map((f, i) => (
-                            <motion.div
-                              key={f}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: 0.1 * i }}
-                              className="flex items-center gap-3 rounded-lg bg-white/5 p-3 text-sm"
-                            >
-                              <div
-                                className={`h-2 w-2 rounded-full bg-gradient-to-r ${projects[active].accent}`}
-                              />
-                              <span className="text-white/80">{f}</span>
-                            </motion.div>
-                          ))}
-                        </div>
-
-                        <div className="mt-6 grid grid-cols-3 gap-3">
-                          {["Active", "Live", "Stable"].map((s) => (
-                            <div key={s} className="rounded-lg bg-white/5 p-3 text-center">
-                              <div className="font-display text-lg font-bold text-emerald-300">●</div>
-                              <p className="mt-1 text-xs text-white/50">{s}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
+                      )}
+                      <iframe
+                        key={`${current.id}-${view}-${reloadKey}`}
+                        src={current.liveUrl}
+                        title={`${current.title} — live`}
+                        loading="lazy"
+                        onLoad={() => setLoading(false)}
+                        className="h-full w-full border-0 bg-white"
+                        sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+                        referrerPolicy="no-referrer-when-downgrade"
+                      />
                     </div>
-                  </motion.div>
-                </AnimatePresence>
+                    <p className="mt-3 text-center font-mono text-[11px] text-white/30">
+                      Interactive live preview · click and scroll inside the frame
+                    </p>
+                  </div>
+                ) : (
+                  /* Coming-soon placeholder */
+                  <div className="flex w-full max-w-md flex-col items-center justify-center gap-4 py-16 text-center">
+                    <div
+                      className={`inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${current.accent} opacity-90`}
+                    >
+                      <Clock size={26} className="text-white" />
+                    </div>
+                    <h4 className="font-display text-2xl font-semibold">{current.title}</h4>
+                    <p className="text-sm text-white/50">{current.solution}</p>
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-xs font-medium text-amber-300">
+                      Launching Soon · Beta planned Q3
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Footer bar */}
@@ -145,10 +183,10 @@ export function DemoLab() {
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   <div className="flex items-center gap-2 text-xs text-white/40">
                     <Code2 size={14} />
-                    <span className="font-mono">{projects[active].stack.join(" · ")}</span>
+                    <span className="font-mono">{current.stack.join(" · ")}</span>
                   </div>
                   <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs text-emerald-300">
-                    {projects[active].impact.split(".")[0]}
+                    {current.impact.split(".")[0]}
                   </span>
                 </div>
               </div>

@@ -25,7 +25,24 @@ export const skills = {
   "AI & Automation": ["Python", "OpenAI API", "RPA", "PowerShell", "n8n", "LangChain"],
 };
 
-export const projects = [
+export type ProjectStatus = "live" | "coming-soon";
+
+export type Project = {
+  id: string;
+  title: string;
+  tagline: string;
+  problem: string;
+  solution: string;
+  features: string[];
+  stack: string[];
+  impact: string;
+  accent: string;
+  liveUrl: string | null;
+  displayUrl: string;
+  status: ProjectStatus;
+};
+
+export const projects: Project[] = [
   {
     id: "lead-management",
     title: "Lead Management System",
@@ -44,6 +61,9 @@ export const projects = [
     stack: ["Next.js", "TypeScript", "PostgreSQL", "Node.js", "Tailwind"],
     impact: "40% faster lead response time. 3x pipeline visibility for sales managers.",
     accent: "from-blue-500 to-cyan-500",
+    liveUrl: "https://sns-ads-erp.vercel.app",
+    displayUrl: "sns-ads-erp.vercel.app",
+    status: "live",
   },
   {
     id: "breakiq",
@@ -63,6 +83,9 @@ export const projects = [
     stack: ["React", "Node.js", "WebSockets", "MongoDB", "Express"],
     impact: "Reduced unplanned overages by 60%. Saved 12+ supervisor hours/week.",
     accent: "from-purple-500 to-pink-500",
+    liveUrl: "https://breakiq.in",
+    displayUrl: "breakiq.in",
+    status: "live",
   },
   {
     id: "saran-tax",
@@ -76,6 +99,9 @@ export const projects = [
     stack: ["Next.js", "Tailwind", "Sanity CMS", "Resend"],
     impact: "12+ inbound leads/month from organic search within 90 days of launch.",
     accent: "from-emerald-500 to-teal-500",
+    liveUrl: "https://sarantaxsolution.com",
+    displayUrl: "sarantaxsolution.com",
+    status: "live",
   },
   {
     id: "pragat-hanuman",
@@ -87,6 +113,9 @@ export const projects = [
     stack: ["Next.js", "Tailwind", "Razorpay", "Cloudinary"],
     impact: "5x increase in event attendance. Enabled global donations from NRI devotees.",
     accent: "from-amber-500 to-orange-500",
+    liveUrl: "https://pragathanumanji.in",
+    displayUrl: "pragathanumanji.in",
+    status: "live",
   },
   {
     id: "jewelry-ecom",
@@ -98,6 +127,9 @@ export const projects = [
     stack: ["Next.js", "Medusa.js", "PostgreSQL", "Stripe", "Tailwind"],
     impact: "In active development. Beta launch planned Q3.",
     accent: "from-rose-500 to-fuchsia-500",
+    liveUrl: null,
+    displayUrl: "launching soon",
+    status: "coming-soon",
   },
 ];
 

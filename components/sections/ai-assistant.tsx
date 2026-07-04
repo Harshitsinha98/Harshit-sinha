@@ -3,54 +3,240 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Send, User, Bot } from "lucide-react";
 import { SectionHeading } from "@/components/shared/section-heading";
+import { personal, skills, projects, experience, education, certifications } from "@/lib/data";
 
-const sampleQA: Record<string, string> = {
-  skills:
-    "Harshit specialises in Next.js, TypeScript, React, Node.js, and PostgreSQL — plus cloud infra on AWS/Azure, Python automation, RPA, and AI tooling like OpenAI API and LangChain.",
-  projects:
-    "5+ shipped products: a Lead Management System, BreakIQ (real-time workforce monitoring), Saran Tax Solution, Pragat Hanuman Ji (temple platform), and a jewelry ecommerce store in progress.",
-  experience:
-    "Full Stack Product Engineer (freelance, 2022–present) + Technical Operations Lead at Capgemini (Apr 2024–present), where he builds automation workflows and leads cross-functional engineering delivery. Previously Infrastructure & Ops Engineer at Indus Towers.",
-  services:
-    "Custom web apps, business automation, SaaS MVPs, ecommerce platforms, and ongoing engineering partnerships.",
-  hire: `Email ${
-    "sinhaharshit67@gmail.com"
-  } or use the contact form below. Currently accepting new projects.`,
-  automation:
-    "Harshit has hands-on experience with Python scripting, RPA tools, n8n workflow automation, PowerShell, and AI/chatbot integrations deployed at enterprise scale.",
-  tech: "Frontend: Next.js, React, TypeScript, Tailwind. Backend: Node.js, Express, Spring Boot. DB: PostgreSQL, MongoDB. Cloud: AWS, Azure, Vercel, Docker. AI: Python, LangChain, OpenAI.",
+// ── Knowledge base — answers are built from real data so they never drift ──────
+
+const skillLine = Object.entries(skills)
+  .map(([k, v]) => `${k}: ${v.join(", ")}`)
+  .join(" · ");
+
+const projectAnswer = (id: string) => {
+  const p = projects.find((x) => x.id === id)!;
+  const link =
+    p.status === "live"
+      ? `🔗 Live at ${p.displayUrl}`
+      : "🚧 Currently in development — beta planned Q3.";
+  return `${p.title} — ${p.tagline}.\n\nProblem: ${p.problem}\nSolution: ${p.solution}\nImpact: ${p.impact}\n\nStack: ${p.stack.join(", ")}.\n${link}`;
 };
 
-const suggestions = ["skills", "projects", "experience", "automation", "hire"];
+type Intent = {
+  id: string;
+  keywords: string[];
+  answer: string;
+  followups: string[];
+};
+
+const intents: Intent[] = [
+  {
+    id: "skills",
+    keywords: ["skill", "skills", "good at", "expertise", "specialise", "specialize", "capable", "what can you do", "strength"],
+    answer: `Harshit is a full-stack product engineer. Core strengths → ${skillLine}.`,
+    followups: ["tech stack", "automation work", "show me projects"],
+  },
+  {
+    id: "tech",
+    keywords: ["tech stack", "stack", "technologies", "tools", "frameworks", "languages", "what do you use", "tech"],
+    answer: `Stack in one line → Frontend: Next.js, React, TypeScript, Tailwind, Framer Motion. Backend: Node.js, Express, NestJS, Java, Spring Boot. DB: PostgreSQL, MongoDB, MySQL, Redis, Prisma. Cloud: AWS, Azure, Vercel, Docker, CI/CD. AI & Automation: Python, OpenAI API, LangChain, RPA, n8n.`,
+    followups: ["skills", "automation work", "how do I hire?"],
+  },
+  {
+    id: "projects",
+    keywords: ["project", "projects", "work", "portfolio", "built", "shipped", "products", "case study", "case studies"],
+    answer:
+      `${projects.length} products shipped/in-progress:\n\n` +
+      projects
+        .map((p) => `• ${p.title} — ${p.tagline} ${p.status === "live" ? "🟢 live" : "🟠 soon"}`)
+        .join("\n") +
+      `\n\nAsk me about any one by name (e.g. "tell me about BreakIQ") or open the Live Showroom above to click through them.`,
+    followups: ["tell me about BreakIQ", "the lead management system", "the temple website"],
+  },
+  {
+    id: "p-lead",
+    keywords: ["lead management", "lead", "crm", "sales", "erp", "sns-ads", "pipeline platform"],
+    answer: projectAnswer("lead-management"),
+    followups: ["other projects", "tech stack", "how do I hire?"],
+  },
+  {
+    id: "p-breakiq",
+    keywords: ["breakiq", "break iq", "workforce", "monitoring", "break management", "supervisor"],
+    answer: projectAnswer("breakiq"),
+    followups: ["other projects", "the lead management system", "how do I hire?"],
+  },
+  {
+    id: "p-tax",
+    keywords: ["tax", "saran", "consultant", "consultancy", "accounting"],
+    answer: projectAnswer("saran-tax"),
+    followups: ["other projects", "the temple website", "how do I hire?"],
+  },
+  {
+    id: "p-temple",
+    keywords: ["temple", "hanuman", "pragat", "devotee", "darshan", "religious", "donation"],
+    answer: projectAnswer("pragat-hanuman"),
+    followups: ["other projects", "the jewelry store", "how do I hire?"],
+  },
+  {
+    id: "p-jewelry",
+    keywords: ["jewelry", "jewellery", "jewel", "ecommerce", "ecom", "store", "shop"],
+    answer: projectAnswer("jewelry-ecom"),
+    followups: ["other projects", "services offered", "how do I hire?"],
+  },
+  {
+    id: "experience",
+    keywords: ["experience", "background", "career", "history", "worked", "job", "employment", "years"],
+    answer:
+      experience
+        .map((e) => `• ${e.role} @ ${e.company} (${e.period}) — ${e.bullets[0]}`)
+        .join("\n") + `\n\n3+ years building production software end-to-end.`,
+    followups: ["what about Capgemini?", "skills", "how do I hire?"],
+  },
+  {
+    id: "capgemini",
+    keywords: ["capgemini", "current job", "current role", "day job", "9 to 5"],
+    answer: `At Capgemini (Apr 2024–present) Harshit is a Technical Operations Lead — designing Python & RPA automation, building analytics pipelines, leading AI/chatbot integrations, and coordinating with L3 engineering on critical incidents across global client accounts.`,
+    followups: ["experience", "automation work", "how do I hire?"],
+  },
+  {
+    id: "automation",
+    keywords: ["automation", "automate", "rpa", "python", "n8n", "bot", "script", "workflow", "ai integration"],
+    answer: `Automation is a core focus: Python scripting, RPA tools, n8n workflow automation, PowerShell, and AI/chatbot integrations deployed at enterprise scale — cutting manual effort significantly and surfacing KPI trends across operations.`,
+    followups: ["tech stack", "services offered", "how do I hire?"],
+  },
+  {
+    id: "services",
+    keywords: ["service", "services", "offer", "help with", "do for me", "provide", "build for me"],
+    answer: `What Harshit builds for clients: custom web apps, business automation, SaaS MVPs, ecommerce platforms, marketing/business websites, and ongoing engineering partnerships — full ownership from discovery to deployment.`,
+    followups: ["how do I hire?", "show me projects", "pricing / budget"],
+  },
+  {
+    id: "hire",
+    keywords: ["hire", "contact", "reach", "email", "get in touch", "connect", "talk", "work together", "available", "availability"],
+    answer: `Currently accepting new projects ✅\n\n📧 ${personal.email}\n📱 ${personal.phone}\n💬 WhatsApp: ${personal.whatsapp}\n🔗 LinkedIn: ${personal.linkedin}\n\nOr just use the contact form below.`,
+    followups: ["pricing / budget", "services offered", "resume"],
+  },
+  {
+    id: "pricing",
+    keywords: ["price", "pricing", "cost", "rate", "rates", "budget", "charge", "quote", "how much"],
+    answer: `Pricing depends on scope — Harshit works on fixed-scope builds (MVPs, websites, automations) as well as ongoing monthly engineering partnerships. Best approach: share what you're building via the contact form and you'll get a tailored quote.`,
+    followups: ["how do I hire?", "services offered", "show me projects"],
+  },
+  {
+    id: "resume",
+    keywords: ["resume", "cv", "download", "pdf"],
+    answer: `You can view or download Harshit's full resume from the Resume section above (or the "Resume" button in the nav). It covers experience, skills, education, and certifications.`,
+    followups: ["experience", "education", "how do I hire?"],
+  },
+  {
+    id: "education",
+    keywords: ["education", "degree", "college", "university", "study", "studied", "graduate", "btech", "b.tech"],
+    answer: `${education[0].degree} — ${education[0].school} (${education[0].year}). Plus certifications: ${certifications.join(", ")}.`,
+    followups: ["experience", "skills", "how do I hire?"],
+  },
+  {
+    id: "location",
+    keywords: ["location", "where", "based", "country", "city", "remote", "timezone"],
+    answer: `Harshit is based in India and works remotely with clients globally. Comfortable across timezones for async or live collaboration.`,
+    followups: ["how do I hire?", "experience", "services offered"],
+  },
+  {
+    id: "why",
+    keywords: ["why", "why you", "why hire", "why harshit", "what makes", "different", "better", "stand out"],
+    answer: `Why Harshit: product-first mindset (ships outcomes, not just features), clean scalable architecture, fast execution with tight feedback loops, and every technical decision tied to a measurable business result — backed by 5+ live products.`,
+    followups: ["show me projects", "skills", "how do I hire?"],
+  },
+];
+
+const greetings = ["hi", "hello", "hey", "yo", "namaste", "hola", "sup"];
+const thanks = ["thanks", "thank you", "thx", "great", "cool", "awesome", "nice"];
+
+const norm = (s: string) => ` ${s.toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim()} `;
+
+function respond(query: string): { text: string; followups: string[] } {
+  const q = norm(query);
+  const words = q.trim().split(" ");
+
+  // greetings / thanks — short circuit
+  if (words.length <= 3 && greetings.some((g) => words.includes(g))) {
+    return {
+      text: "Hey! 👋 I'm Harshit's assistant. Ask me about his skills, any project, experience, automation work, pricing, or how to hire him.",
+      followups: ["skills", "show me projects", "how do I hire?"],
+    };
+  }
+  if (thanks.some((t) => q.includes(` ${t} `))) {
+    return {
+      text: "Anytime! 🙌 Anything else you'd like to know — projects, experience, or how to get in touch?",
+      followups: ["show me projects", "how do I hire?", "why Harshit?"],
+    };
+  }
+
+  // score every intent by keyword hits (longer keywords weigh more)
+  let best: Intent | null = null;
+  let bestScore = 0;
+  for (const intent of intents) {
+    let score = 0;
+    for (const kw of intent.keywords) {
+      if (q.includes(` ${kw} `) || q.includes(`${kw} `) || q.includes(` ${kw}`)) {
+        score += 1 + kw.split(" ").length; // multi-word phrase = stronger signal
+      }
+    }
+    if (score > bestScore) {
+      bestScore = score;
+      best = intent;
+    }
+  }
+
+  if (best && bestScore > 0) {
+    return { text: best.answer, followups: best.followups };
+  }
+
+  // graceful fallback with routing
+  return {
+    text: "Hmm, I don't have a canned answer for that one — but I know a lot about Harshit. Try one of these, or ask about a specific project by name:",
+    followups: ["skills", "show me projects", "experience", "how do I hire?"],
+  };
+}
+
+type Msg = { role: "user" | "bot"; text: string; followups?: string[] };
 
 export function AIAssistant() {
-  const [messages, setMessages] = useState<{ role: "user" | "bot"; text: string }[]>([
+  const [messages, setMessages] = useState<Msg[]>([
     {
       role: "bot",
-      text: "Hi 👋 Ask me anything about Harshit — skills, projects, experience, automation work, or how to hire.",
+      text: "Hi 👋 I'm Harshit's AI assistant. Ask me anything — skills, any project, experience, automation, pricing, or how to hire him.",
+      followups: ["What are his skills?", "Show me projects", "How do I hire?"],
     },
   ]);
   const [input, setInput] = useState("");
+  const [thinking, setThinking] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const isFirstRender = useRef(true);
-useEffect(() => {
-  if (isFirstRender.current) {
-    isFirstRender.current = false;
-    return;
-  }
-  bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-}, [messages]);
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, thinking]);
 
   const send = (text: string) => {
-    if (!text.trim()) return;
-    const key = Object.keys(sampleQA).find((k) => text.toLowerCase().includes(k));
-    const reply = key
-      ? sampleQA[key]
-      : "Great question! Try asking about skills, projects, experience, automation, or how to hire Harshit.";
-    setMessages((m) => [...m, { role: "user", text }, { role: "bot", text: reply }]);
+    if (!text.trim() || thinking) return;
+    setMessages((m) => [...m, { role: "user", text }]);
     setInput("");
+    setThinking(true);
+
+    const { text: reply, followups } = respond(text);
+    // realistic thinking delay, scaled to answer length but capped
+    const delay = Math.min(1100, 350 + reply.length * 4);
+    setTimeout(() => {
+      setMessages((m) => [...m, { role: "bot", text: reply, followups }]);
+      setThinking(false);
+    }, delay);
   };
+
+  // chips reflect the latest bot message's follow-ups
+  const lastBot = [...messages].reverse().find((m) => m.role === "bot");
+  const chips = lastBot?.followups ?? ["skills", "projects", "hire"];
 
   return (
     <section className="relative py-32">
@@ -58,7 +244,7 @@ useEffect(() => {
         <SectionHeading
           eyebrow="AI Assistant"
           title="Ask me anything"
-          description="Want a quick answer about Harshit's work? Ask the assistant."
+          description="A smart assistant trained on Harshit's work — ask about skills, any project, experience, pricing, or hiring."
         />
 
         <motion.div
@@ -72,11 +258,17 @@ useEffect(() => {
           <div className="flex items-center gap-2 border-b border-white/5 px-5 py-4">
             <Sparkles size={16} className="text-purple-400" />
             <span className="text-sm font-medium">Harshit AI · live</span>
-            <span className="ml-auto h-2 w-2 rounded-full bg-emerald-400" />
+            <span className="ml-auto flex items-center gap-1.5 text-xs text-emerald-300">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              </span>
+              online
+            </span>
           </div>
 
           {/* Messages */}
-          <div className="max-h-[400px] space-y-4 overflow-y-auto p-6">
+          <div className="max-h-[440px] min-h-[280px] space-y-4 overflow-y-auto p-6">
             <AnimatePresence initial={false}>
               {messages.map((m, i) => (
                 <motion.div
@@ -95,7 +287,7 @@ useEffect(() => {
                     {m.role === "user" ? <User size={14} /> : <Bot size={14} />}
                   </div>
                   <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm ${
+                    className={`max-w-[80%] whitespace-pre-line rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                       m.role === "user" ? "bg-white/[0.08] text-white" : "bg-white/[0.04] text-white/85"
                     }`}
                   >
@@ -104,21 +296,47 @@ useEffect(() => {
                 </motion.div>
               ))}
             </AnimatePresence>
+
+            {/* Typing indicator */}
+            {thinking && (
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex gap-3">
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500/30 to-purple-500/30">
+                  <Bot size={14} />
+                </div>
+                <div className="flex items-center gap-1 rounded-2xl bg-white/[0.04] px-4 py-4">
+                  {[0, 1, 2].map((d) => (
+                    <motion.span
+                      key={d}
+                      className="h-1.5 w-1.5 rounded-full bg-white/50"
+                      animate={{ opacity: [0.3, 1, 0.3], y: [0, -2, 0] }}
+                      transition={{ duration: 0.9, repeat: Infinity, delay: d * 0.15 }}
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            )}
             <div ref={bottomRef} />
           </div>
 
           {/* Input */}
           <div className="border-t border-white/5 p-4">
             <div className="mb-3 flex flex-wrap gap-2">
-              {suggestions.map((s) => (
-                <button
-                  key={s}
-                  onClick={() => send(s)}
-                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70 transition hover:bg-white/10 hover:text-white"
-                >
-                  {s}
-                </button>
-              ))}
+              <AnimatePresence mode="popLayout">
+                {chips.map((s) => (
+                  <motion.button
+                    key={s}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    onClick={() => send(s)}
+                    disabled={thinking}
+                    className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70 transition hover:bg-white/10 hover:text-white disabled:opacity-40"
+                  >
+                    {s}
+                  </motion.button>
+                ))}
+              </AnimatePresence>
             </div>
             <div className="flex gap-2">
               <input
@@ -130,7 +348,8 @@ useEffect(() => {
               />
               <button
                 onClick={() => send(input)}
-                className="rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 px-4 transition hover:shadow-lg hover:shadow-purple-500/40"
+                disabled={thinking}
+                className="rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 px-4 transition hover:shadow-lg hover:shadow-purple-500/40 disabled:opacity-50"
               >
                 <Send size={16} />
               </button>

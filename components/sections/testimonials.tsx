@@ -1,55 +1,54 @@
 "use client";
 import { motion } from "framer-motion";
-import { Quote } from "lucide-react";
+import Link from "next/link";
+import { Quote, ArrowUpRight, Star } from "lucide-react";
 import { SectionHeading } from "@/components/shared/section-heading";
-
-const testimonials = [
-  {
-    quote: "Be the first to share your experience working with Harshit.",
-    author: "Your Name",
-    role: "Future Client",
-    placeholder: true,
-  },
-];
 
 export function Testimonials() {
   return (
     <section className="relative py-32">
-      <div className="mx-auto max-w-5xl px-6">
+      <div className="mx-auto max-w-3xl px-6">
         <SectionHeading
           eyebrow="Testimonials"
-          title="Voices from the work"
-          description="Trusted by founders, teams, and businesses across multiple industries."
+          title="Your review could be first"
+          description="I'm early into building a public track record — the products are live and working, the words from clients are on their way."
         />
 
-        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {[1, 2, 3].map((i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.6 }}
-              className="glass rounded-2xl p-6"
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="relative mt-14 overflow-hidden rounded-3xl border border-white/[0.08] bg-gradient-to-br from-elevated to-surface p-10 text-center md:p-14"
+        >
+          {/* Ambient glow */}
+          <div className="pointer-events-none absolute left-1/2 top-0 h-48 w-96 -translate-x-1/2 rounded-full bg-gradient-to-br from-purple-500/15 to-blue-500/10 blur-3xl" />
+
+          <div className="relative">
+            <Quote size={40} className="mx-auto text-purple-400/50" />
+
+            {/* Empty star row */}
+            <div className="mt-6 flex justify-center gap-1.5">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} size={18} className="text-white/15" />
+              ))}
+            </div>
+
+            <p className="mx-auto mt-6 max-w-xl font-display text-xl font-light leading-relaxed text-white/70 md:text-2xl">
+              &ldquo;This space is reserved for the first client who ships something great with
+              me.&rdquo;
+            </p>
+            <p className="mt-4 text-sm text-white/40">— could be you</p>
+
+            <Link
+              href="#contact"
+              className="group mt-10 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-3.5 text-sm font-medium shadow-lg shadow-purple-500/20 transition hover:shadow-2xl hover:shadow-purple-500/40"
             >
-              <Quote size={24} className="text-purple-400/60" />
-              <p className="mt-4 text-sm leading-relaxed text-white/70">
-                {i === 1
-                  ? "Reserved for client #1 — your testimonial here."
-                  : i === 2
-                  ? "Reserved for client #2 — your testimonial here."
-                  : "Reserved for client #3 — your testimonial here."}
-              </p>
-              <div className="mt-6 flex items-center gap-3 border-t border-white/5 pt-4">
-                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500/30 to-purple-500/30" />
-                <div>
-                  <p className="text-sm font-medium">Future Client</p>
-                  <p className="text-xs text-white/40">Awaiting review</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              Start a project
+              <ArrowUpRight size={16} className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
