@@ -71,13 +71,13 @@ export function DemoLab() {
           <div className="lg:col-span-9">
             <div className="glass overflow-hidden rounded-2xl">
               {/* Browser chrome */}
-              <div className="flex items-center justify-between gap-3 border-b border-white/5 px-4 py-3">
-                <div className="flex min-w-0 items-center gap-2">
-                  <div className="h-3 w-3 shrink-0 rounded-full bg-red-500/70" />
-                  <div className="h-3 w-3 shrink-0 rounded-full bg-yellow-500/70" />
-                  <div className="h-3 w-3 shrink-0 rounded-full bg-emerald-500/70" />
-                  <div className="ml-2 flex min-w-0 items-center gap-2 rounded-md bg-black/40 px-3 py-1 font-mono text-xs text-white/50">
-                    <span className="text-emerald-400/70">🔒</span>
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 px-3 py-3 sm:px-4">
+                <div className="flex min-w-0 flex-1 items-center gap-2">
+                  <div className="hidden h-3 w-3 shrink-0 rounded-full bg-red-500/70 sm:block" />
+                  <div className="hidden h-3 w-3 shrink-0 rounded-full bg-yellow-500/70 sm:block" />
+                  <div className="hidden h-3 w-3 shrink-0 rounded-full bg-emerald-500/70 sm:block" />
+                  <div className="flex min-w-0 items-center gap-2 rounded-md bg-black/40 px-3 py-1 font-mono text-xs text-white/50 sm:ml-2">
+                    <span className="shrink-0 text-emerald-400/70">🔒</span>
                     <span className="truncate">{current.displayUrl}</span>
                   </div>
                 </div>
@@ -86,7 +86,7 @@ export function DemoLab() {
                     <button
                       onClick={() => setReloadKey((k) => k + 1)}
                       title="Reload preview"
-                      className="rounded-md p-1.5 text-white/40 transition hover:text-white"
+                      className="hidden rounded-md p-1.5 text-white/40 transition hover:text-white sm:block"
                     >
                       <RotateCw size={14} />
                     </button>
@@ -124,7 +124,7 @@ export function DemoLab() {
               </div>
 
               {/* Live demo area */}
-              <div className="relative flex min-h-[560px] items-center justify-center bg-gradient-to-br from-black via-elevated to-black p-4 md:p-6">
+              <div className="relative flex min-h-[520px] items-center justify-center bg-gradient-to-br from-black via-elevated to-black p-3 sm:p-4 md:p-6">
                 {current.liveUrl ? (
                   <div
                     className={`relative mx-auto w-full transition-all duration-500 ${

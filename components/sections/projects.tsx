@@ -1,4 +1,5 @@
 "use client";
+import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight, ExternalLink, Clock } from "lucide-react";
@@ -23,7 +24,7 @@ export function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative overflow-hidden rounded-3xl border border-white/[0.08] bg-gradient-to-br from-elevated to-surface p-8 transition-all hover:border-white/15 md:p-10"
+              className="group relative overflow-hidden rounded-3xl border border-white/[0.08] bg-gradient-to-br from-elevated to-surface p-5 transition-all hover:border-white/15 sm:p-8 md:p-10"
             >
               {/* Accent glow */}
               <div
@@ -136,10 +137,31 @@ export function Projects() {
 }
 
 function LivePreview({ project: p }: { project: (typeof projects)[number] }) {
+  const boxRef = useRef<HTMLAnchorElement>(null);
+  // Measure the container so the 1280px desktop render always scales to fill it
+  // exactly — on any screen width, phone included — instead of a fixed crop.
+  const [frame, setFrame] = useState({ scale: 0.4, height: 900 });
+
+  useEffect(() => {
+    const el = boxRef.current;
+    if (!el || !p.liveUrl) return;
+    const update = () => {
+      const w = el.clientWidth;
+      const h = el.clientHeight;
+      if (!w || !h) return;
+      const scale = w / 1280;
+      setFrame({ scale, height: h / scale });
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [p.liveUrl]);
+
   if (!p.liveUrl) {
     // Coming soon — elegant placeholder consistent with live cards
     return (
-      <div className="relative h-64 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-black to-elevated lg:h-48">
+      <div className="relative h-52 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-black to-elevated sm:h-64 lg:h-48">
         <div className={`absolute inset-0 bg-gradient-to-br ${p.accent} opacity-20`} />
         <div className="absolute inset-0 grid-bg opacity-30" />
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
@@ -154,13 +176,14 @@ function LivePreview({ project: p }: { project: (typeof projects)[number] }) {
 
   return (
     <a
+      ref={boxRef}
       href={p.liveUrl}
       target="_blank"
       rel="noopener noreferrer"
       data-hover
-      className="group/prev relative block h-64 overflow-hidden rounded-2xl border border-white/10 bg-black lg:h-48"
+      className="group/prev relative block h-52 overflow-hidden rounded-2xl border border-white/10 bg-black sm:h-64 lg:h-48"
     >
-      {/* Live desktop render, scaled down as a thumbnail (non-interactive here) */}
+      {/* Live desktop render, scaled to fill the box on every screen size */}
       <div className="pointer-events-none absolute inset-0">
         <iframe
           src={p.liveUrl}
@@ -169,7 +192,7 @@ function LivePreview({ project: p }: { project: (typeof projects)[number] }) {
           tabIndex={-1}
           aria-hidden
           className="absolute left-0 top-0 origin-top-left border-0"
-          style={{ width: "1280px", height: "820px", transform: "scale(0.42)" }}
+          style={{ width: "1280px", height: `${frame.height}px`, transform: `scale(${frame.scale})` }}
         />
       </div>
       {/* Hover overlay */}
