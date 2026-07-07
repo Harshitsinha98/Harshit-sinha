@@ -25,7 +25,7 @@ export const skills = {
   "AI & Automation": ["Python", "OpenAI API", "RPA", "PowerShell", "n8n", "LangChain"],
 };
 
-export type ProjectStatus = "live" | "coming-soon";
+export type ProjectStatus = "live" | "in-progress" | "coming-soon";
 
 export type Project = {
   id: string;
@@ -119,17 +119,27 @@ export const projects: Project[] = [
   },
   {
     id: "jewelry-ecom",
-    title: "Jewelry & Lifestyle Ecommerce",
-    tagline: "Premium ecommerce platform (WIP)",
-    problem: "Boutique jewelry brand needed conversion-optimized ecommerce with luxury feel.",
-    solution: "Headless commerce with cinematic product pages, AR try-on roadmap, and Razorpay checkout.",
-    features: ["Headless catalog", "Wishlist + cart", "Razorpay + COD", "Order tracking", "Admin panel"],
-    stack: ["Next.js", "Medusa.js", "PostgreSQL", "Stripe", "Tailwind"],
-    impact: "In active development. Beta launch planned Q3.",
-    accent: "from-rose-500 to-fuchsia-500",
-    liveUrl: null,
-    displayUrl: "launching soon",
-    status: "coming-soon",
+    title: "Shivis Elegance",
+    tagline: "Full-stack jewelry ecommerce platform with a dedicated admin dashboard",
+    problem:
+      "Jewelry brand needed more than a storefront — a complete system to manage products, inventory, orders, customers, and revenue alongside the customer-facing shop.",
+    solution:
+      "Built two connected systems: a customer store with OTP-based login, dual payment gateways, and self-serve order tracking/returns, plus a separate admin dashboard for full inventory, order, customer, revenue, and coupon management — with Shiprocket wired in to auto-generate AWBs the moment an order is placed.",
+    features: [
+      "Admin dashboard — products, inventory, orders, customers, revenue",
+      "OTP-based customer login & account management",
+      "Razorpay + Stripe payment gateways",
+      "Shiprocket integration — auto AWB generation on order placement",
+      "Customer order tracking & returns",
+      "Admin-managed discount coupons",
+    ],
+    stack: ["Next.js", "Node.js", "Express", "PostgreSQL", "Razorpay", "Shiprocket API"],
+    impact:
+      "End-to-end order lifecycle — checkout, payments, shipping, and admin ops — tested and fully functional in production. Full product catalog and final polish still in progress.",
+    accent: "from-rose-400 to-amber-500",
+    liveUrl: "https://shivis-elegance1.vercel.app",
+    displayUrl: "shivis-elegance1.vercel.app",
+    status: "in-progress",
   },
 ];
 

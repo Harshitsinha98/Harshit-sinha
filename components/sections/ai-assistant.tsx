@@ -13,10 +13,11 @@ const skillLine = Object.entries(skills)
 
 const projectAnswer = (id: string) => {
   const p = projects.find((x) => x.id === id)!;
-  const link =
-    p.status === "live"
-      ? `🔗 Live at ${p.displayUrl}`
-      : "🚧 Currently in development — beta planned Q3.";
+  const link = p.liveUrl
+    ? p.status === "in-progress"
+      ? `🔗 Live at ${p.displayUrl} — core system is live and tested, final polish + full catalog in progress.`
+      : `🔗 Live at ${p.displayUrl}`
+    : "🚧 Currently in development — beta planned Q3.";
   return `${p.title} — ${p.tagline}.\n\nProblem: ${p.problem}\nSolution: ${p.solution}\nImpact: ${p.impact}\n\nStack: ${p.stack.join(", ")}.\n${link}`;
 };
 
@@ -46,7 +47,12 @@ const intents: Intent[] = [
     answer:
       `${projects.length} products shipped/in-progress:\n\n` +
       projects
-        .map((p) => `• ${p.title} — ${p.tagline} ${p.status === "live" ? "🟢 live" : "🟠 soon"}`)
+        .map(
+          (p) =>
+            `• ${p.title} — ${p.tagline} ${
+              p.status === "live" ? "🟢 live" : p.status === "in-progress" ? "🟡 in progress" : "🟠 soon"
+            }`
+        )
         .join("\n") +
       `\n\nAsk me about any one by name (e.g. "tell me about BreakIQ") or open the Live Showroom above to click through them.`,
     followups: ["tell me about BreakIQ", "the lead management system", "the temple website"],

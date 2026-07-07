@@ -37,7 +37,7 @@ export function Projects() {
                     <span>
                       0{i + 1} / 0{projects.length}
                     </span>
-                    {p.status === "live" ? (
+                    {p.status === "live" && (
                       <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-0.5 text-emerald-300">
                         <span className="relative flex h-1.5 w-1.5">
                           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
@@ -45,7 +45,14 @@ export function Projects() {
                         </span>
                         LIVE
                       </span>
-                    ) : (
+                    )}
+                    {p.status === "in-progress" && (
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/25 bg-amber-500/10 px-2.5 py-0.5 text-amber-300">
+                        <Clock size={11} />
+                        IN PROGRESS
+                      </span>
+                    )}
+                    {p.status === "coming-soon" && (
                       <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/25 bg-amber-500/10 px-2.5 py-0.5 text-amber-300">
                         <Clock size={11} />
                         COMING SOON

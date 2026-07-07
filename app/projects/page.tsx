@@ -179,11 +179,17 @@ export default function ProjectsPage() {
                     <span className="rounded-full bg-black/60 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-white/70 backdrop-blur-md ring-1 ring-white/10">
                       {categoryMap[p.id] || "Project"}
                     </span>
-                    {p.status === "live" ? (
+                    {p.status === "live" && (
                       <span className="inline-flex items-center gap-1 rounded-full bg-black/60 px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-emerald-300 backdrop-blur-md ring-1 ring-emerald-500/20">
                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Live
                       </span>
-                    ) : (
+                    )}
+                    {p.status === "in-progress" && (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-black/60 px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-amber-300 backdrop-blur-md ring-1 ring-amber-500/20">
+                        <Clock size={9} /> In Progress
+                      </span>
+                    )}
+                    {p.status === "coming-soon" && (
                       <span className="inline-flex items-center gap-1 rounded-full bg-black/60 px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-amber-300 backdrop-blur-md ring-1 ring-amber-500/20">
                         <Clock size={9} /> Soon
                       </span>

@@ -55,7 +55,7 @@ export function DemoLab() {
                   )}
                   <div className="flex items-center justify-between gap-2">
                     <p className="text-sm font-medium">{p.title}</p>
-                    {p.status === "live" ? (
+                    {p.liveUrl ? (
                       <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
                     ) : (
                       <Clock size={12} className="shrink-0 text-amber-300/70" />
