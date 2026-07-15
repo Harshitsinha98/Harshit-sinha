@@ -61,7 +61,7 @@ export default function ProjectsPage() {
           align="left"
           eyebrow="Portfolio"
           title="Every product, shipped."
-          description="A complete index of work — production systems, client products, and ongoing builds."
+          description="A complete index of what I've built — deployed products, live demos, and ongoing builds."
         />
 
         {/* Filters */}

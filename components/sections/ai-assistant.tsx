@@ -32,13 +32,13 @@ const intents: Intent[] = [
   {
     id: "skills",
     keywords: ["skill", "skills", "good at", "expertise", "specialise", "specialize", "capable", "what can you do", "strength"],
-    answer: `Harshit is a full-stack product engineer. Core strengths → ${skillLine}.`,
+    answer: `Harshit is a product builder & automation person. What he works with → ${skillLine}.`,
     followups: ["tech stack", "automation work", "show me projects"],
   },
   {
     id: "tech",
     keywords: ["tech stack", "stack", "technologies", "tools", "frameworks", "languages", "what do you use", "tech"],
-    answer: `Stack in one line → Frontend: Next.js, React, TypeScript, Tailwind, Framer Motion. Backend: Node.js, Express, NestJS, Java, Spring Boot. DB: PostgreSQL, MongoDB, MySQL, Redis, Prisma. Cloud: AWS, Azure, Vercel, Docker, CI/CD. AI & Automation: Python, OpenAI API, LangChain, RPA, n8n.`,
+    answer: `Tools he builds with → Frontend: Next.js, React, TypeScript, Tailwind. Backend: Node.js, Express. DB: PostgreSQL, MongoDB, MySQL, Prisma. Deploy: Vercel, Git, CI/CD. AI & Automation: AI-assisted development, OpenAI API, Python, RPA, n8n. He builds a lot with AI assistance and is deepening the fundamentals underneath.`,
     followups: ["skills", "automation work", "how do I reach him?"],
   },
   {
@@ -93,7 +93,7 @@ const intents: Intent[] = [
     answer:
       experience
         .map((e) => `• ${e.role} @ ${e.company} (${e.period}) — ${e.bullets[0]}`)
-        .join("\n") + `\n\n3+ years building production software end-to-end.`,
+        .join("\n") + `\n\n3+ years across operations, automation, and building products end-to-end.`,
     followups: ["what about Capgemini?", "skills", "how do I reach him?"],
   },
   {
@@ -147,7 +147,7 @@ const intents: Intent[] = [
   {
     id: "why",
     keywords: ["why", "why you", "why hire", "why harshit", "what makes", "different", "better", "stand out"],
-    answer: `Why Harshit: product-first mindset (ships outcomes, not just features), clean scalable architecture, fast execution with tight feedback loops, and every technical decision tied to a measurable business result — backed by 5+ live products.`,
+    answer: `Why Harshit: he ships end-to-end (idea → deployed), leans on AI to build fast, automates the repetitive stuff, and brings real operations discipline (a 99.9% uptime background). Backed by 5+ products he's built — and a genuine drive to keep leveling up.`,
     followups: ["show me projects", "skills", "how do I reach him?"],
   },
 ];

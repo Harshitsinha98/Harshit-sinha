@@ -1,6 +1,6 @@
 export const personal = {
   name: "Harshit Sinha",
-  role: "Full Stack Engineer",
+  role: "Product Builder & Automation",
   company: "Capgemini",
   email: "sinhaharshit67@gmail.com",
   phone: "+91-9653043939",
@@ -12,17 +12,17 @@ export const personal = {
 
 export const trustStats = [
   { label: "Years Experience", value: 3, suffix: "+" },
-  { label: "Products Shipped", value: 5, suffix: "+" },
-  { label: "Infra Nodes Managed", value: 150, suffix: "+" },
+  { label: "Products Built", value: 5, suffix: "+" },
+  { label: "Towers Managed", value: 150, suffix: "+" },
   { label: "Uptime Delivered", value: 99, suffix: ".9%" },
 ];
 
 export const skills = {
-  Frontend: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion", "Redux"],
-  Backend: ["Node.js", "Express", "NestJS", "Java", "Spring Boot", "REST APIs"],
-  Database: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "Prisma"],
-  Cloud: ["AWS", "Azure", "Vercel", "Docker", "CI/CD", "Linux"],
-  "AI & Automation": ["Python", "OpenAI API", "RPA", "PowerShell", "n8n", "LangChain"],
+  "Build With": ["Next.js", "React", "TypeScript", "Tailwind CSS", "Node.js", "Express"],
+  Data: ["PostgreSQL", "MongoDB", "MySQL", "Prisma"],
+  "Deploy & Cloud": ["Vercel", "Git", "CI/CD", "Linux"],
+  "AI & Automation": ["AI-assisted development", "OpenAI API", "Python", "RPA", "n8n"],
+  Operations: ["Incident response", "Uptime & monitoring", "Process automation"],
 };
 
 export type ProjectStatus = "live" | "in-progress" | "coming-soon";
@@ -59,7 +59,8 @@ export const projects: Project[] = [
       "Export & reporting",
     ],
     stack: ["Next.js", "TypeScript", "PostgreSQL", "Node.js", "Tailwind"],
-    impact: "40% faster lead response time. 3x pipeline visibility for sales managers.",
+    impact:
+      "Built end-to-end — role-based access, assignment rules, automated follow-ups, and pipeline analytics. Deployed and demo-ready.",
     accent: "from-blue-500 to-cyan-500",
     liveUrl: "https://sns-ads-erp.vercel.app",
     displayUrl: "sns-ads-erp.vercel.app",
@@ -81,7 +82,8 @@ export const projects: Project[] = [
       "Audit logs",
     ],
     stack: ["React", "Node.js", "WebSockets", "MongoDB", "Express"],
-    impact: "Reduced unplanned overages by 60%. Saved 12+ supervisor hours/week.",
+    impact:
+      "Built end-to-end — live status board, configurable policy rules, threshold alerts, and shift analytics. Deployed and demo-ready.",
     accent: "from-purple-500 to-pink-500",
     liveUrl: "https://breakiq.in",
     displayUrl: "breakiq.in",
@@ -97,7 +99,8 @@ export const projects: Project[] = [
       "SEO-optimized marketing site with service catalog, appointment booking, and lead capture funnel.",
     features: ["Service pages with schema", "Booking integration", "Blog/CMS", "Lead forms", "WhatsApp chat"],
     stack: ["Next.js", "Tailwind", "Sanity CMS", "Resend"],
-    impact: "12+ inbound leads/month from organic search within 90 days of launch.",
+    impact:
+      "Live for a real tax consultancy — the site brings in genuine inbound leads through organic search.",
     accent: "from-emerald-500 to-teal-500",
     liveUrl: "https://sarantaxsolution.com",
     displayUrl: "sarantaxsolution.com",
@@ -111,7 +114,8 @@ export const projects: Project[] = [
     solution: "Beautiful devotional site with event calendar, donation flow, and live darshan integration.",
     features: ["Event calendar", "Online donations", "Photo gallery", "Multi-language", "Newsletter"],
     stack: ["Next.js", "Tailwind", "Razorpay", "Cloudinary"],
-    impact: "5x increase in event attendance. Enabled global donations from NRI devotees.",
+    impact:
+      "Built end-to-end — event calendar, online donations, photo gallery, and newsletter. Deployed and demo-ready.",
     accent: "from-amber-500 to-orange-500",
     liveUrl: "https://pragathanumanji.in",
     displayUrl: "pragathanumanji.in",
@@ -147,15 +151,15 @@ export const projects: Project[] = [
 
 export const experience = [
   {
-    company: "Independent / Freelance",
-    role: "Full Stack Product Engineer",
-    period: "2022 — Present",
+    company: "Independent Projects",
+    role: "Product Builder — AI-Assisted Development",
+    period: "2023 — Present",
     location: "Remote",
     bullets: [
-      "Shipped 5+ production products end-to-end — discovery, design, build, and maintenance",
-      "Built Lead Management System, BreakIQ, Saran Tax Solution, and more for active clients",
-      "Full ownership: architecture decisions, database design, deployment, and iteration",
-      "Multiple products currently in active pipeline across e-commerce, fintech, and community",
+      "Design, build, and ship web products end-to-end using AI-assisted development — from idea and UX to integrations and deployment",
+      "Shipped Saran Tax Solution (live, generating real inbound leads); built Lead Management, BreakIQ, a temple site, and a jewelry store (deployed, in pre-launch)",
+      "Own the full journey: product decisions, third-party integrations (payments, shipping, CMS), and deployment on Vercel",
+      "Currently deepening software engineering fundamentals to build more of it independently",
     ],
   },
   {
@@ -164,23 +168,22 @@ export const experience = [
     period: "Apr 2024 — Present",
     location: "India",
     bullets: [
-      "Designed and deployed automated workflows using Python & RPA, cutting manual effort significantly",
-      "Built data analytics pipelines (Python, MS Excel macros) to surface KPI trends across operations",
-      "Led AI/chatbot integration projects to optimize end-user resolution journeys",
-      "Coordinated with L3 and cross-functional engineering teams on critical incident resolution",
-      "Architected process-improvement frameworks adopted across multiple global client accounts",
+      "Build and maintain automation workflows (Python & RPA) that cut repetitive manual effort",
+      "Create reporting and analytics with Python and Excel to surface operational KPI trends",
+      "Support AI / chatbot integration efforts to improve end-user resolution journeys",
+      "Coordinate with L3 and cross-functional teams on incident resolution across client accounts",
     ],
   },
   {
     company: "Indus Towers",
-    role: "Infrastructure & Operations Engineer",
+    role: "Field Operations Engineer",
     period: "Dec 2022 — Jan 2024",
     location: "India",
     bullets: [
-      "Managed operations for 150+ distributed infrastructure nodes — 99.9% uptime target",
-      "Applied predictive analytics and Root Cause Analysis to eliminate recurring systemic failures",
-      "Led transition to an autonomous smart-operations model reducing manual intervention by 40%",
-      "Optimized energy consumption through data-driven resource analysis and strategic planning",
+      "Managed field operations for 150+ telecom tower sites across an assigned region",
+      "Delivered 99.9% network uptime through preventive maintenance and fast fault resolution",
+      "Coordinated on-ground teams and vendors for repairs, power, and site upkeep",
+      "Ran root-cause analysis on recurring faults to reduce repeat outages",
     ],
   },
 ];
@@ -202,34 +205,34 @@ export const certifications = [
 
 export const valueProps = [
   {
-    title: "Product-First Mindset",
-    desc: "I don't ship features. I ship outcomes that move business metrics.",
-    icon: "Target",
+    title: "Ships End-to-End",
+    desc: "I take ideas all the way to a deployed, working product — not just mockups.",
+    icon: "Rocket",
   },
   {
-    title: "Scalable Architecture",
-    desc: "Clean, modular, well-typed systems built to grow from day one.",
-    icon: "Layers",
-  },
-  {
-    title: "Fast Execution",
-    desc: "Tight feedback loops. Ship in days, not months. Iterate in hours.",
-    icon: "Zap",
-  },
-  {
-    title: "Business-Focused",
-    desc: "Every technical decision tied to a measurable business outcome.",
-    icon: "TrendingUp",
-  },
-  {
-    title: "Modern UI Craft",
-    desc: "Award-quality interfaces with motion, polish, and intent.",
+    title: "AI-Native Builder",
+    desc: "I use AI tools to design, integrate, and build fast — and I'm learning the fundamentals underneath.",
     icon: "Sparkles",
   },
   {
     title: "Automation Mindset",
-    desc: "If it can be automated, it will be — Python, RPA, or n8n.",
+    desc: "If a task is repetitive, I automate it — Python, RPA, and n8n.",
     icon: "Bot",
+  },
+  {
+    title: "Operations Discipline",
+    desc: "Years keeping real infrastructure at 99.9% uptime taught me reliability and ownership.",
+    icon: "Activity",
+  },
+  {
+    title: "Fast Learner",
+    desc: "I pick up new tools and domains quickly — and go from zero to shipped.",
+    icon: "Zap",
+  },
+  {
+    title: "Full Ownership",
+    desc: "I take responsibility for the whole thing — build, deploy, fix, iterate.",
+    icon: "Target",
   },
 ];
 

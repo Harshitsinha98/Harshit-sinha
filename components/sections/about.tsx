@@ -7,12 +7,12 @@ import { SpotlightCard } from "@/components/ui/spotlight";
 
 const facets = [
   {
-    id: "engineer",
-    label: "The Engineer",
+    id: "operator",
+    label: "The Operator",
     icon: Code2,
     accent: "from-blue-400 to-cyan-400",
     glow: "rgba(59,130,246,0.18)",
-    text: "I started out keeping enterprise infrastructure alive — 150+ distributed nodes, a 99.9% uptime target, root-cause analysis at 2am. That's where I learned systems thinking: clean architecture, typed contracts, and code that survives contact with production.",
+    text: "I spent two years keeping 150+ telecom tower sites running at 99.9% uptime — field operations, fault resolution, coordinating teams on the ground. That's where I learned reliability, ownership, and staying calm when real systems go down.",
   },
   {
     id: "builder",
@@ -20,7 +20,7 @@ const facets = [
     icon: Rocket,
     accent: "from-purple-400 to-pink-400",
     glow: "rgba(168,85,247,0.18)",
-    text: "I ship products end-to-end — discovery, design, build, deploy, iterate. Lead platforms, workforce tools, temple sites, tax consultancies. Different domains, same obsession: real people depending on it every single day, not a demo that gathers dust.",
+    text: "I turn ideas into shipped products using AI-assisted development — design, integrate, deploy. Saran Tax Solution is live and pulling in real leads; a handful more are built and getting ready. Different domains, same drive: make something real, not a demo that gathers dust.",
   },
   {
     id: "automator",
@@ -28,14 +28,14 @@ const facets = [
     icon: Zap,
     accent: "from-amber-400 to-orange-400",
     glow: "rgba(251,146,60,0.18)",
-    text: "If it can be automated, it will be. Python, RPA, n8n, PowerShell, and AI integrations that cut manual hours at enterprise scale and surface the KPI trends that actually move decisions.",
+    text: "If it's repetitive, I automate it — Python, RPA, n8n, and AI integrations that cut manual hours. This is the part of tech I've done longest, and I'm now going deeper into the engineering behind everything I build.",
   },
 ];
 
 const factList = [
   { icon: MapPin, label: "Based in India", sub: "Open to remote & relocation" },
   { icon: Building2, label: "Capgemini by day", sub: "Building products by night" },
-  { icon: Sparkles, label: "Outcomes over output", sub: "Every decision tied to a metric" },
+  { icon: Sparkles, label: "AI-assisted builder", sub: "Idea to deployed, fast" },
 ];
 
 export function About() {
@@ -45,7 +45,7 @@ export function About() {
   return (
     <section id="about" className="relative py-32">
       <div className="mx-auto max-w-5xl px-6">
-        <SectionHeading eyebrow="About" title="I don't just build software." />
+        <SectionHeading eyebrow="About" title="I ship things that work." />
 
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -54,8 +54,8 @@ export function About() {
           transition={{ delay: 0.2, duration: 0.8 }}
           className="mx-auto mt-6 max-w-3xl text-center font-display text-3xl font-light tracking-tight text-white/80 md:text-4xl"
         >
-          I build <span className="text-gradient font-medium">business assets</span> — systems that
-          generate revenue, save hours, and scale with growth.
+          I turn ideas into <span className="text-gradient font-medium">real, working products</span> —
+          and I&apos;m going deeper into the engineering behind them.
         </motion.p>
 
         <div className="mt-16 grid gap-8 md:grid-cols-5">

@@ -31,7 +31,7 @@ export function DemoLab() {
         <SectionHeading
           eyebrow="Live Showroom"
           title="Step inside the products"
-          description="These aren't mockups — each panel below is the real, production site running live. Switch projects, toggle desktop or mobile, and click straight through."
+          description="These aren't mockups — each panel below is the real, deployed site running live. Switch projects, toggle desktop or mobile, and click straight through."
         />
 
         <div className="mt-16 grid gap-8 lg:grid-cols-12">

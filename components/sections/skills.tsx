@@ -22,9 +22,9 @@ export function Skills() {
       <div className="absolute inset-0 grid-bg opacity-30" />
       <div className="relative mx-auto max-w-7xl px-6">
         <SectionHeading
-          eyebrow="Stack"
-          title="Full-spectrum craft"
-          description="From pixel-perfect frontends to production backends, cloud infrastructure, and AI automation."
+          eyebrow="Toolbox"
+          title="What I build with"
+          description="The tools and technologies I use to design, build, and ship products — AI-assisted, and getting more hands-on every day."
         />
 
         <div className="mt-16 grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-5">

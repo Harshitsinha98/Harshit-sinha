@@ -86,12 +86,10 @@ export function Hero() {
   // Typewriter for rotating roles
   const typedRole = useTypewriter(
     [
-      "Full Stack Engineer",
       "Product Builder",
-      "System Architect",
-      "Automation Engineer",
-      "AI Integration Specialist",
-      "SaaS Developer",
+      "AI-Assisted Developer",
+      "Automation Specialist",
+      "Operations Engineer",
       "Problem Solver",
     ],
     120, // typing speed (ms per char)
@@ -204,10 +202,10 @@ export function Hero() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              <span className="text-white/70">Open to full-time roles</span>
+              <span className="text-white/70">Open to opportunities</span>
               <span className="text-white/20">·</span>
               <Sparkles size={12} className="text-purple-400" />
-              <span className="text-white/70">Software Engineer @ Capgemini</span>
+              <span className="text-white/70">Currently @ Capgemini</span>
             </motion.div>
 
             {/* ====== Headline ====== */}
@@ -220,7 +218,7 @@ export function Hero() {
               }}
               className="font-display text-5xl font-bold leading-[1.05] tracking-tighter sm:text-6xl md:text-7xl lg:text-[4.75rem]"
             >
-              {["I craft", "scalable software", "that drives growth."].map((line, i) => (
+              {["I turn ideas", "into real products", "— shipped."].map((line, i) => (
                 <span key={i} className="block overflow-hidden">
                   <motion.span
                     variants={{
@@ -263,8 +261,9 @@ export function Hero() {
               transition={{ delay: D + 0.7, duration: 0.7 }}
               className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/55 sm:text-lg lg:mx-0"
             >
-              Product-focused engineer shipping high-performance software, automation
-              systems, and modern digital products for startups and enterprises.
+              I build and ship real products end-to-end using AI-assisted development —
+              backed by a background in technical operations and automation. Currently
+              deepening my software engineering craft.
             </motion.p>
 
             {/* ====== CTAs ====== */}

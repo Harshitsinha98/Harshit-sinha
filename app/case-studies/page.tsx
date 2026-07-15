@@ -38,10 +38,10 @@ const architectureNotes: Record<string, string[]> = {
     "Newsletter automation for event notifications",
   ],
   "jewelry-ecom": [
-    "Medusa.js headless commerce backend",
-    "Custom storefront with cinematic product pages",
-    "Wishlist, cart, and checkout state persisted across sessions",
-    "Admin panel for inventory and order operations",
+    "Next.js storefront with a separate Node/Express + PostgreSQL backend",
+    "OTP-based customer login and self-serve order tracking",
+    "Razorpay + Stripe payments, with Shiprocket for auto AWB generation",
+    "Dedicated admin dashboard for inventory, orders, customers, and revenue",
   ],
 };
 

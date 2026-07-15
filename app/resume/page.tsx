@@ -79,9 +79,10 @@ export default function ResumePage() {
                   {personal.role} · {personal.company}
                 </p>
                 <p className="mt-4 max-w-xl text-sm text-white/60">
-                  Full Stack Software Engineer with 3+ years shipping scalable
-                  web apps, automation systems, and production backends. Open to
-                  full-time software engineering roles.
+                  Product builder and automation specialist. I ship web products
+                  end-to-end using AI-assisted development, with a background in
+                  technical operations (150+ tower sites, 99.9% uptime).
+                  Currently deepening my software engineering fundamentals.
                 </p>
               </div>
 
@@ -262,11 +263,11 @@ export default function ResumePage() {
                 <ul className="mt-4 space-y-2 text-sm text-white/70">
                   <li className="flex gap-2">
                     <span className="text-emerald-400">✓</span>
-                    5+ production products shipped
+                    5+ products built & deployed end-to-end
                   </li>
                   <li className="flex gap-2">
                     <span className="text-emerald-400">✓</span>
-                    99.9% uptime across 150+ infra nodes
+                    99.9% uptime across 150+ tower sites (Indus)
                   </li>
                   <li className="flex gap-2">
                     <span className="text-emerald-400">✓</span>
