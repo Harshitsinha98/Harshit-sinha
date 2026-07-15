@@ -43,7 +43,9 @@ function useTypewriter(words: string[], typingSpeed = 80, deletingSpeed = 50, pa
 /*  Hero Component                                                     */
 /* ------------------------------------------------------------------ */
 export function Hero() {
-  const [particles, setParticles] = useState<{ x: number; y: number; size: number }[]>([]);
+  const [particles, setParticles] = useState<
+    { x: number; y: number; size: number; rise: number; duration: number }[]
+  >([]);
   const [mounted, setMounted] = useState(false);
 
   // Cursor-reactive spotlight
@@ -75,6 +77,8 @@ export function Hero() {
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
         size: 1 + Math.random() * 3,
+        rise: 60 + Math.random() * 80,
+        duration: 4 + Math.random() * 4,
       }))
     );
   }, []);
@@ -128,12 +132,12 @@ export function Hero() {
           }}
           initial={{ x: p.x, y: p.y, opacity: 0 }}
           animate={{
-            y: [p.y, p.y - 60 - Math.random() * 80, p.y],
+            y: [p.y, p.y - p.rise, p.y],
             x: [p.x, p.x + (i % 2 === 0 ? 20 : -20), p.x],
             opacity: [0.15, 0.7, 0.15],
           }}
           transition={{
-            duration: 4 + Math.random() * 4,
+            duration: p.duration,
             repeat: Infinity,
             delay: i * 0.3,
             ease: "easeInOut",

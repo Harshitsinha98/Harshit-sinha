@@ -38,9 +38,7 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  // This is the actual "navbar not in sync with page.tsx" fix: the bar
-  // now knows which route it's on and highlights the matching link,
-  // instead of always looking the same no matter what page you're viewing.
+  // Close the mobile menu whenever the route changes.
   useEffect(() => {
     setOpen(false);
   }, [pathname]);

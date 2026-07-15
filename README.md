@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Harshit Sinha — Portfolio
 
-## Getting Started
+Personal portfolio site for Harshit Sinha, a full-stack product engineer.
+Showcases shipped products, experience, skills, and a way to get in touch.
 
-First, run the development server:
+Live projects featured here include a Lead Management System, BreakIQ,
+Saran Tax Solution, Pragat Hanuman Ji, and Shivis Elegance.
+
+## Tech stack
+
+- **Framework:** Next.js (App Router) + React 19
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Animation:** Framer Motion, GSAP
+- **Smooth scroll:** Lenis
+- **Icons:** lucide-react
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command         | Description                     |
+| --------------- | ------------------------------- |
+| `npm run dev`   | Start the local dev server      |
+| `npm run build` | Production build                |
+| `npm run start` | Serve the production build      |
+| `npm run lint`  | Lint the codebase with ESLint   |
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/          Routes and pages (App Router)
+components/   UI, layout, and page section components
+lib/          Shared data, constants, and utilities
+public/       Static assets (images, resume.pdf)
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Site content (projects, experience, skills, contact details) lives in
+`lib/data.ts`, so most updates are a single-file edit.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deployed on Vercel. Pushing to the default branch triggers a new build.

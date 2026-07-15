@@ -13,6 +13,16 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: {
+      // Apostrophes and quotes in JSX copy are readable and valid; this rule
+      // is noise for a content-heavy portfolio.
+      "react/no-unescaped-entities": "off",
+      // Surface as a warning: the flagged effects (mount setup, route-change
+      // resets) are intentional and correct patterns.
+      "react-hooks/set-state-in-effect": "warn",
+    },
+  },
 ]);
 
 export default eslintConfig;

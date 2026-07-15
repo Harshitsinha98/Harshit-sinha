@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { valueProps } from "@/lib/data";
 import { SectionHeading } from "@/components/shared/section-heading";
 
@@ -16,7 +17,8 @@ export function WhyHire() {
 
         <div className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {valueProps.map((v, i) => {
-            const Icon = (Icons as any)[v.icon] || Icons.Sparkles;
+            const Icon =
+              (Icons as unknown as Record<string, LucideIcon>)[v.icon] || Icons.Sparkles;
             return (
               <motion.div
                 key={v.title}

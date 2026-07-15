@@ -45,33 +45,6 @@ const architectureNotes: Record<string, string[]> = {
   ],
 };
 
-const sectionIcons = [
-  {
-    key: "challenge",
-    Icon: Target,
-    color: "bg-blue-500/15 text-blue-300",
-    glow: "from-blue-500/20",
-  },
-  {
-    key: "solution",
-    Icon: Lightbulb,
-    color: "bg-purple-500/15 text-purple-300",
-    glow: "from-purple-500/20",
-  },
-  {
-    key: "architecture",
-    Icon: Code2,
-    color: "bg-cyan-500/15 text-cyan-300",
-    glow: "from-cyan-500/20",
-  },
-  {
-    key: "impact",
-    Icon: TrendingUp,
-    color: "bg-emerald-500/15 text-emerald-300",
-    glow: "from-emerald-500/20",
-  },
-];
-
 export default function CaseStudiesPage() {
   return (
     <div className="relative min-h-screen pt-32">

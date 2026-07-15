@@ -208,7 +208,7 @@ export function AIAssistant() {
   const [messages, setMessages] = useState<Msg[]>([
     {
       role: "bot",
-      text: "Hi 👋 I'm Harshit's AI assistant. Ask me anything — skills, any project, experience, automation, pricing, or how to hire him.",
+      text: "Hi 👋 I'm Harshit's portfolio assistant. Ask me anything — skills, any project, experience, automation, pricing, or how to hire him.",
       followups: ["What are his skills?", "Show me projects", "How do I hire?"],
     },
   ]);
@@ -248,9 +248,9 @@ export function AIAssistant() {
     <section className="relative py-32">
       <div className="mx-auto max-w-4xl px-6">
         <SectionHeading
-          eyebrow="AI Assistant"
+          eyebrow="Assistant"
           title="Ask me anything"
-          description="A smart assistant trained on Harshit's work — ask about skills, any project, experience, pricing, or hiring."
+          description="A guided assistant that answers from Harshit's real data — ask about skills, any project, experience, pricing, or hiring."
         />
 
         <motion.div
@@ -263,7 +263,7 @@ export function AIAssistant() {
           {/* Header */}
           <div className="flex items-center gap-2 border-b border-white/5 px-5 py-4">
             <Sparkles size={16} className="text-purple-400" />
-            <span className="text-sm font-medium">Harshit AI · live</span>
+            <span className="text-sm font-medium">Portfolio assistant</span>
             <span className="ml-auto flex items-center gap-1.5 text-xs text-emerald-300">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
