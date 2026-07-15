@@ -64,10 +64,18 @@ export function Hero() {
 
   // Typewriter for rotating roles
   const typedRole = useTypewriter(
-    ["Full Stack Engineer", "Product Builder", "System Architect", "Problem Solver"],
+    [
+      "Full Stack Engineer",
+      "Product Builder",
+      "System Architect",
+      "Automation Engineer",
+      "AI Integration Specialist",
+      "SaaS Developer",
+      "Problem Solver",
+    ],
     70,
     40,
-    2200
+    1800
   );
 
   useEffect(() => {
@@ -217,9 +225,12 @@ export function Hero() {
               className="mt-5 flex items-center justify-center gap-2 lg:justify-start"
             >
               <div className="h-px w-8 bg-gradient-to-r from-transparent to-white/20" />
-              <p className="font-mono text-sm text-white/50">
-                {typedRole}
-                <span className="ml-0.5 inline-block h-4 w-[2px] animate-pulse bg-blue-400 align-middle" />
+              <p className="font-mono text-base text-white/50 sm:text-lg">
+                <span className="text-white/40">I&apos;m a </span>
+                <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text font-semibold text-transparent">
+                  {typedRole}
+                </span>
+                <span className="ml-1 inline-block h-5 w-[2px] animate-pulse bg-purple-400 align-middle" />
               </p>
             </motion.div>
 
