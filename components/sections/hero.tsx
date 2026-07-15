@@ -73,9 +73,9 @@ export function Hero() {
       "SaaS Developer",
       "Problem Solver",
     ],
-    70,
-    40,
-    1800
+    120,
+    65,
+    2600
   );
 
   useEffect(() => {
