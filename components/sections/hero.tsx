@@ -218,23 +218,28 @@ export function Hero() {
               }}
               className="font-display text-5xl font-bold leading-[1.05] tracking-tighter sm:text-6xl md:text-7xl lg:text-[4.75rem]"
             >
-              {["I turn ideas", "into real products", "— shipped."].map((line, i) => (
-                <span key={i} className="block overflow-hidden">
-                  <motion.span
-                    variants={{
-                      hidden: { y: "120%", opacity: 0 },
-                      visible: {
-                        y: 0,
-                        opacity: 1,
-                        transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
-                      },
-                    }}
-                    className={`block ${i === 1 ? "bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent" : ""}`}
-                  >
-                    {line}
-                  </motion.span>
-                </span>
-              ))}
+              {/* Screen readers and text scrapers see this single, correctly
+                  spaced sentence instead of three concatenated fragments. */}
+              <span className="sr-only">I turn ideas into real products — shipped.</span>
+              <span aria-hidden="true">
+                {["I turn ideas", "into real products", "— shipped."].map((line, i) => (
+                  <span key={i} className="block overflow-hidden">
+                    <motion.span
+                      variants={{
+                        hidden: { y: "120%", opacity: 0 },
+                        visible: {
+                          y: 0,
+                          opacity: 1,
+                          transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
+                        },
+                      }}
+                      className={`block ${i === 1 ? "bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent" : ""}`}
+                    >
+                      {line}
+                    </motion.span>
+                  </span>
+                ))}
+              </span>
             </motion.h1>
 
             {/* ====== Typewriter Role ====== */}
@@ -323,7 +328,7 @@ export function Hero() {
               <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-background">
                 <Image
                   src="/images/harshit-hero.jpg"
-                  alt="Harshit Sinha — Full Stack Engineer"
+                  alt="Harshit Sinha — Product Builder & Automation"
                   fill
                   priority
                   sizes="(max-width: 1024px) 80vw, 420px"
@@ -403,7 +408,7 @@ export function Hero() {
                 {"\n  "}
                 <span className="text-white/40">role</span>
                 <span className="text-white/30">:</span>{" "}
-                <span className="text-emerald-300">&apos;Full Stack Engineer&apos;</span>
+                <span className="text-emerald-300">&apos;Product Builder&apos;</span>
                 <span className="text-white/30">,</span>
                 {"\n  "}
                 <span className="text-white/40">stack</span>

@@ -116,6 +116,16 @@ export function Projects() {
                         className="transition group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
                       />
                     </Link>
+                    <Link
+                      href={`/case-studies#case-${p.id}`}
+                      className="group/btn inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium text-white/60 transition hover:bg-white/5 hover:text-white"
+                    >
+                      Case study
+                      <ArrowUpRight
+                        size={14}
+                        className="transition group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5"
+                      />
+                    </Link>
                   </div>
                 </div>
 

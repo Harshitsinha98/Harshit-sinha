@@ -6,7 +6,7 @@ import { ArrowUpRight, ExternalLink, Filter, Sparkles, Clock } from "lucide-reac
 import { projects } from "@/lib/data";
 import { SectionHeading } from "@/components/shared/section-heading";
 
-const categories = ["All", "SaaS", "Business", "Ecommerce", "Website"];
+const categories = ["All", "SaaS", "Ecommerce", "Website"];
 
 const categoryMap: Record<string, string> = {
   "lead-management": "SaaS",
@@ -286,20 +286,20 @@ export default function ProjectsPage() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              Available for new projects
+              Open to opportunities
             </div>
             <h3 className="font-display text-3xl font-bold md:text-4xl">
-              Have a project in mind?
+              Want to talk about a role?
             </h3>
             <p className="mx-auto mt-3 max-w-xl text-white/60">
-              From early-stage MVPs to scaled production systems — let's talk
-              about what you're building.
+              Open to full-time roles and select freelance work — happy to
+              walk through any of this in more depth.
             </p>
             <Link
               href="/contact"
               className="mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 px-8 py-3.5 text-sm font-medium shadow-lg shadow-purple-500/20 transition hover:shadow-2xl hover:shadow-purple-500/40"
             >
-              Start a conversation
+              Get in touch
               <ArrowUpRight size={16} />
             </Link>
           </div>

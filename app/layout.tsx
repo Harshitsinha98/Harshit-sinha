@@ -12,23 +12,22 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "sw
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Harshit Sinha — Full Stack Engineer | Open to Roles",
+  title: "Harshit Sinha — Product Builder & Automation",
   description:
-    "Full Stack Software Engineer with 3+ years shipping production web apps, automation systems, and scalable backends. Open to full-time software engineering roles.",
+    "I build and ship real products end-to-end using AI-assisted development, backed by a background in technical operations and automation. Open to opportunities.",
   keywords: [
-    "Full Stack Engineer",
-    "Software Engineer",
-    "Next.js Developer",
-    "React Developer",
-    "Node.js Developer",
+    "Product Builder",
+    "AI-Assisted Development",
+    "Automation",
+    "Next.js",
     "Harshit Sinha",
-    "Software Engineer India",
+    "Technical Operations",
     "Open to work",
   ],
   openGraph: {
-    title: "Harshit Sinha — Full Stack Engineer | Open to Roles",
+    title: "Harshit Sinha — Product Builder & Automation",
     description:
-      "Full Stack Software Engineer shipping production web apps, automation, and scalable backends. Open to full-time roles.",
+      "I build and ship real products end-to-end using AI-assisted development, backed by a background in technical operations and automation.",
     type: "website",
   },
 };

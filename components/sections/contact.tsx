@@ -38,25 +38,25 @@ export function Contact() {
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const lines = [
-      `👋 Hi, I'm *${form.name}*`,
-      form.company ? `🏢 Company: ${form.company}` : "",
-      `📧 Email: ${form.email}`,
-      `📌 Regarding: ${form.type}`,
+    // Email is the primary channel — works for any recruiter, anywhere,
+    // no WhatsApp account needed. WhatsApp remains available separately
+    // for those who prefer it (see the sidebar).
+    const subject = `${form.type} — ${form.name}${form.company ? ` (${form.company})` : ""}`;
+    const bodyLines = [
+      `Name: ${form.name}`,
+      form.company ? `Company: ${form.company}` : "",
+      `Email: ${form.email}`,
+      `Regarding: ${form.type}`,
       ``,
-      `📝 *Details:*`,
       form.message,
-    ]
-      .filter(Boolean)
-      .join("\n");
+    ].filter(Boolean);
 
-    const encoded = encodeURIComponent(lines);
+    const mailto =
+      `mailto:${personal.email}` +
+      `?subject=${encodeURIComponent(subject)}` +
+      `&body=${encodeURIComponent(bodyLines.join("\n"))}`;
 
-    const waBase = personal.whatsapp.includes("?")
-      ? personal.whatsapp + "&text=" + encoded
-      : personal.whatsapp + "?text=" + encoded;
-
-    window.open(waBase, "_blank", "noopener,noreferrer");
+    window.location.href = mailto;
     setSent(true);
   };
 
@@ -126,7 +126,7 @@ export function Contact() {
         <SectionHeading
           eyebrow="Contact"
           title="Let's work together"
-          description="Open to full-time software engineering roles — and select freelance projects. Tell me about the opportunity and I'll get back within 24 hours."
+          description="Open to full-time roles — and select freelance projects. Tell me about the opportunity and I'll get back within 24 hours."
         />
 
         {/* Quick actions */}
@@ -182,7 +182,7 @@ export function Contact() {
                 Reach out
               </h3>
               <p className="text-xs text-white/40">
-                Fill in the details and it&apos;ll open WhatsApp with your message pre-filled
+                Fill in the details and it&apos;ll open your email client with everything pre-filled
               </p>
 
               <div className="grid gap-4 md:grid-cols-2">
@@ -253,18 +253,19 @@ export function Contact() {
               <button
                 type="submit"
                 disabled={sent}
-                className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 px-6 py-4 text-sm font-medium shadow-lg shadow-emerald-500/20 transition-all hover:shadow-2xl hover:shadow-emerald-500/40 disabled:opacity-60"
+                className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-4 text-sm font-medium shadow-lg shadow-purple-500/20 transition-all hover:shadow-2xl hover:shadow-purple-500/40 disabled:opacity-60"
               >
                 <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
-                <MessageCircle size={18} className="relative" />
+                <Mail size={18} className="relative" />
                 <span className="relative">
-                  {sent ? "Opening WhatsApp..." : "Send via WhatsApp"}
+                  {sent ? "Opening your email app..." : "Send Email"}
                 </span>
                 <Send size={14} className="relative transition-transform group-hover:translate-x-1" />
               </button>
 
               <p className="text-center text-xs text-white/40">
-                Clicking send opens WhatsApp with your message pre-filled — no data stored.
+                Clicking send opens your email client with everything pre-filled — no data stored.
+                Prefer WhatsApp? Use the option in the sidebar instead.
               </p>
             </div>
           </motion.form>

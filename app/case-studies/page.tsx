@@ -156,7 +156,7 @@ export default function CaseStudiesPage() {
                   <span
                     className={`rounded-full bg-gradient-to-r ${p.accent} px-3 py-1 text-xs font-medium shadow-lg`}
                   >
-                    {p.id === "jewelry-ecom" ? "In Progress" : "Shipped"}
+                    {p.status === "in-progress" ? "In Progress" : "Deployed"}
                   </span>
                 </div>
 
@@ -376,17 +376,17 @@ export default function CaseStudiesPage() {
 
           <div className="relative">
             <h3 className="font-display text-3xl font-bold md:text-4xl">
-              Want this kind of depth on your product?
+              Want to know more about how these were built?
             </h3>
             <p className="mx-auto mt-3 max-w-xl text-white/60">
-              I bring the same rigor to every engagement — discovery,
-              architecture, ship, measure.
+              Open to full-time roles and select freelance work — happy to
+              walk through any of this in more depth.
             </p>
             <Link
               href="/contact"
               className="mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 px-8 py-3.5 text-sm font-medium shadow-lg shadow-purple-500/20 transition hover:shadow-2xl hover:shadow-purple-500/40"
             >
-              Let's talk
+              Get in touch
               <ArrowUpRight size={16} />
             </Link>
           </div>

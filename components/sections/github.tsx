@@ -42,9 +42,9 @@ export function GithubSection() {
 
               <div className="mt-8 grid grid-cols-3 gap-4">
                 {[
-                  { label: "Repos", value: "20+" },
-                  { label: "Stars", value: "★" },
-                  { label: "Active", value: "Daily" },
+                  { label: "Public Repos", value: "12" },
+                  { label: "Since", value: "2022" },
+                  { label: "Language", value: "TS" },
                 ].map((s) => (
                   <div key={s.label} className="rounded-xl bg-white/5 p-4 text-center">
                     <div className="font-display text-xl font-bold text-gradient">{s.value}</div>
@@ -64,10 +64,10 @@ export function GithubSection() {
               </a>
             </div>
 
-            {/* Heatmap */}
+            {/* Decorative pattern — not real contribution data */}
             <div className="border-t border-white/5 bg-black/40 p-8 md:border-l md:border-t-0">
               <p className="text-xs font-semibold uppercase tracking-wider text-white/40">
-                Contribution Activity
+                Code, Visualized
               </p>
               <div className="mt-4 grid grid-cols-[repeat(20,1fr)] gap-1">
                 {Array.from({ length: GRID_ITEMS }).map((_, i) => {
@@ -92,7 +92,7 @@ export function GithubSection() {
                   );
                 })}
               </div>
-              <p className="mt-4 text-xs text-white/40">A snapshot of recent activity.</p>
+              <p className="mt-4 text-xs text-white/40">Decorative — see the real activity on GitHub.</p>
             </div>
           </div>
         </motion.div>

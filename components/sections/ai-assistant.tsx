@@ -111,7 +111,7 @@ const intents: Intent[] = [
   {
     id: "services",
     keywords: ["service", "services", "offer", "help with", "do for me", "provide", "build for me", "what can he do", "looking for", "role", "roles", "position", "fit"],
-    answer: `What Harshit brings to a team: full-stack web apps (Next.js / React + Node), scalable backends and APIs, cloud + CI/CD, and Python / RPA automation — with full ownership from design to production. Open to full-time software engineering roles (and select freelance work).`,
+    answer: `What Harshit brings to a team: shipping real products end-to-end with AI-assisted development, Python / RPA automation, and an operations background built on real reliability (99.9% uptime). Open to full-time roles and select freelance work.`,
     followups: ["how do I reach him?", "show me projects", "tech stack"],
   },
   {
@@ -123,7 +123,7 @@ const intents: Intent[] = [
   {
     id: "pricing",
     keywords: ["price", "pricing", "cost", "rate", "rates", "budget", "charge", "quote", "how much", "salary", "compensation", "ctc", "notice period"],
-    answer: `Harshit is primarily looking for full-time software engineering roles — compensation and notice period are best discussed directly, based on the role. For freelance work he takes on fixed-scope engagements. Reach out via the contact form to talk specifics.`,
+    answer: `Harshit is primarily looking for full-time opportunities — compensation and notice period are best discussed directly, based on the role. For freelance work he takes on fixed-scope engagements. Reach out via the contact form to talk specifics.`,
     followups: ["how do I reach him?", "experience", "show me projects"],
   },
   {
