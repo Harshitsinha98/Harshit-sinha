@@ -9,32 +9,53 @@ import { personal } from "@/lib/data";
 /* ------------------------------------------------------------------ */
 /*  Typewriter hook — cycles through an array of strings              */
 /* ------------------------------------------------------------------ */
-function useTypewriter(words: string[], typingSpeed = 80, deletingSpeed = 50, pauseMs = 2000) {
+function useTypewriter(
+  words: string[],
+  typingSpeed = 90,
+  deletingSpeed = 45,
+  pauseMs = 1800,
+  startDelay = 0
+) {
   const [text, setText] = useState("");
   const [wordIdx, setWordIdx] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [phase, setPhase] = useState<"waiting" | "typing" | "deleting">("waiting");
+
+  // Hold off until the line has appeared, then begin typing from empty.
+  useEffect(() => {
+    const t = setTimeout(() => setPhase("typing"), startDelay);
+    return () => clearTimeout(t);
+  }, [startDelay]);
 
   useEffect(() => {
-    const current = words[wordIdx];
-    const timeout = setTimeout(
-      () => {
-        if (!isDeleting) {
-          setText(current.slice(0, text.length + 1));
-          if (text.length + 1 === current.length) {
-            setTimeout(() => setIsDeleting(true), pauseMs);
-          }
-        } else {
-          setText(current.slice(0, text.length - 1));
-          if (text.length === 0) {
-            setIsDeleting(false);
-            setWordIdx((prev) => (prev + 1) % words.length);
-          }
-        }
-      },
-      isDeleting ? deletingSpeed : typingSpeed
+    if (phase === "waiting") return;
+    const current = words[wordIdx % words.length];
+
+    // Finished typing the word -> pause, then start deleting.
+    if (phase === "typing" && text === current) {
+      const t = setTimeout(() => setPhase("deleting"), pauseMs);
+      return () => clearTimeout(t);
+    }
+
+    // Finished deleting -> brief gap, then move on to the next word.
+    if (phase === "deleting" && text === "") {
+      const t = setTimeout(() => {
+        setWordIdx((i) => (i + 1) % words.length);
+        setPhase("typing");
+      }, 400);
+      return () => clearTimeout(t);
+    }
+
+    // Type or delete one character.
+    const next =
+      phase === "typing"
+        ? current.slice(0, text.length + 1)
+        : current.slice(0, text.length - 1);
+    const t = setTimeout(
+      () => setText(next),
+      phase === "typing" ? typingSpeed : deletingSpeed
     );
-    return () => clearTimeout(timeout);
-  }, [text, isDeleting, wordIdx, words, typingSpeed, deletingSpeed, pauseMs]);
+    return () => clearTimeout(t);
+  }, [text, phase, wordIdx, words, typingSpeed, deletingSpeed, pauseMs]);
 
   return text;
 }
@@ -73,9 +94,10 @@ export function Hero() {
       "SaaS Developer",
       "Problem Solver",
     ],
-    120,
-    65,
-    2600
+    120, // typing speed (ms per char)
+    65, // deleting speed
+    2600, // pause on a full word
+    3800 // wait for the line to fade in, then type from empty
   );
 
   useEffect(() => {
