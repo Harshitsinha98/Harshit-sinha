@@ -6,6 +6,7 @@ import { LenisProvider } from "@/components/layout/lenis-provider";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { Cursor } from "@/components/layout/cursor";
+import { ScrollToTop } from "@/components/layout/scroll-to-top";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Navbar />
           <main>{children}</main>
           <Footer />
+          <ScrollToTop />
         </LenisProvider>
       </body>
     </html>

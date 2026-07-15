@@ -95,6 +95,19 @@ export function Hero() {
       <div className="absolute inset-0 grid-bg opacity-40" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/0 to-background" />
 
+      {/* Slow-drifting aurora orbs for depth */}
+      <div
+        className="pointer-events-none absolute -left-40 top-10 h-[420px] w-[420px] animate-float rounded-full opacity-20 blur-[120px]"
+        style={{ background: "radial-gradient(circle, rgba(59,130,246,.7), transparent 70%)" }}
+      />
+      <div
+        className="pointer-events-none absolute -right-40 top-1/3 h-[460px] w-[460px] animate-glow-pulse rounded-full opacity-[0.18] blur-[130px]"
+        style={{
+          background: "radial-gradient(circle, rgba(168,85,247,.7), transparent 70%)",
+          animationDelay: "1.5s",
+        }}
+      />
+
       {/* Primary spotlight — static */}
       <div
         className="absolute left-1/2 top-0 h-[700px] w-[1100px] -translate-x-1/2 rounded-full opacity-25 blur-[140px]"
