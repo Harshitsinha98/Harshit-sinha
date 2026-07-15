@@ -33,7 +33,7 @@ const facets = [
 ];
 
 const factList = [
-  { icon: MapPin, label: "Based in India", sub: "Remote-first, global clients" },
+  { icon: MapPin, label: "Based in India", sub: "Open to remote & relocation" },
   { icon: Building2, label: "Capgemini by day", sub: "Building products by night" },
   { icon: Sparkles, label: "Outcomes over output", sub: "Every decision tied to a metric" },
 ];

@@ -14,7 +14,7 @@ import {
   Award,
   Code2,
 } from "lucide-react";
-import { personal, experience, skills, projects } from "@/lib/data";
+import { personal, experience, skills, projects, education } from "@/lib/data";
 
 export default function ResumePage() {
   return (
@@ -79,9 +79,9 @@ export default function ResumePage() {
                   {personal.role} · {personal.company}
                 </p>
                 <p className="mt-4 max-w-xl text-sm text-white/60">
-                  Product-focused Full Stack Engineer building scalable business
-                  software, automation systems, and modern digital products for
-                  startups, businesses, and enterprises.
+                  Full Stack Software Engineer with 3+ years shipping scalable
+                  web apps, automation systems, and production backends. Open to
+                  full-time software engineering roles.
                 </p>
               </div>
 
@@ -242,15 +242,16 @@ export default function ResumePage() {
                     Education
                   </h2>
                 </div>
-                <div className="rounded-xl border border-white/8 bg-white/[0.02] p-4">
-                  <h3 className="font-semibold">Bachelor's Degree</h3>
-                  <p className="mt-1 text-sm text-white/60">
-                    Engineering · Computer Science
-                  </p>
-                  <p className="mt-1 text-xs text-white/40">
-                    Graduated 2023
-                  </p>
-                </div>
+                {education.map((edu) => (
+                  <div
+                    key={edu.degree}
+                    className="rounded-xl border border-white/10 bg-white/[0.02] p-4"
+                  >
+                    <h3 className="font-semibold leading-snug">{edu.degree}</h3>
+                    <p className="mt-1 text-sm text-white/60">{edu.school}</p>
+                    <p className="mt-1 text-xs text-white/40">Class of {edu.year}</p>
+                  </div>
+                ))}
               </section>
 
               {/* Highlights */}
@@ -265,7 +266,7 @@ export default function ResumePage() {
                   </li>
                   <li className="flex gap-2">
                     <span className="text-emerald-400">✓</span>
-                    3 active client engagements
+                    99.9% uptime across 150+ infra nodes
                   </li>
                   <li className="flex gap-2">
                     <span className="text-emerald-400">✓</span>

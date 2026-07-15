@@ -17,21 +17,12 @@ import {
 import { personal } from "@/lib/data";
 import { SectionHeading } from "@/components/shared/section-heading";
 
-const projectTypes = [
-  "New product / MVP",
-  "Existing product help",
-  "Automation system",
-  "Website / Landing page",
-  "Consulting",
+const inquiryTypes = [
+  "Full-time role",
+  "Contract role",
+  "Freelance project",
+  "Just connecting",
   "Other",
-];
-
-const budgets = [
-  "< ₹50K",
-  "₹50K – ₹2L",
-  "₹2L – ₹5L",
-  "₹5L+",
-  "Let's discuss",
 ];
 
 export function Contact() {
@@ -39,8 +30,7 @@ export function Contact() {
     name: "",
     email: "",
     company: "",
-    type: projectTypes[0],
-    budget: budgets[0],
+    type: inquiryTypes[0],
     message: "",
   });
   const [sent, setSent] = useState(false);
@@ -52,10 +42,9 @@ export function Contact() {
       `👋 Hi, I'm *${form.name}*`,
       form.company ? `🏢 Company: ${form.company}` : "",
       `📧 Email: ${form.email}`,
-      `📌 Project type: ${form.type}`,
-      `💰 Budget: ${form.budget}`,
+      `📌 Regarding: ${form.type}`,
       ``,
-      `📝 *Project details:*`,
+      `📝 *Details:*`,
       form.message,
     ]
       .filter(Boolean)
@@ -81,20 +70,20 @@ export function Contact() {
       external: false,
     },
     {
+      href: personal.linkedin,
+      icon: Linkedin,
+      label: "LinkedIn",
+      sub: "Best for recruiters",
+      color: "bg-sky-500/15 text-sky-300 group-hover:bg-sky-500/25",
+      external: true,
+    },
+    {
       href: personal.whatsapp,
       icon: MessageCircle,
       label: "WhatsApp",
       sub: "Fastest response ⚡",
       color: "bg-emerald-500/15 text-emerald-300 group-hover:bg-emerald-500/25",
       external: true,
-    },
-    {
-      href: `tel:${personal.phone}`,
-      icon: Phone,
-      label: "Call",
-      sub: personal.phone,
-      color: "bg-purple-500/15 text-purple-300 group-hover:bg-purple-500/25",
-      external: false,
     },
   ];
 
@@ -107,14 +96,14 @@ export function Contact() {
     },
     {
       icon: Calendar,
-      title: "We hop on a call",
-      desc: "30 min to align on scope, timeline, and fit.",
+      title: "We hop on a quick call",
+      desc: "15–30 min to understand the role and see if it's a fit.",
       color: "text-blue-300",
     },
     {
       icon: CheckCircle2,
-      title: "I send a proposal",
-      desc: "Clear scope, milestones, and pricing.",
+      title: "We take it forward",
+      desc: "Interviews, a task, or next steps — whatever your process is.",
       color: "text-purple-300",
     },
   ];
@@ -135,9 +124,9 @@ export function Contact() {
 
       <div className="relative mx-auto max-w-6xl px-6">
         <SectionHeading
-          eyebrow="Let's Talk"
-          title="Let's build something great together"
-          description="Whether it's an MVP, a scale-up, or a legacy modernization — share what you're working on and I'll get back within 24 hours."
+          eyebrow="Contact"
+          title="Let's work together"
+          description="Open to full-time software engineering roles — and select freelance projects. Tell me about the opportunity and I'll get back within 24 hours."
         />
 
         {/* Quick actions */}
@@ -190,10 +179,10 @@ export function Contact() {
 
             <div className="relative space-y-5">
               <h3 className="font-display text-2xl font-semibold">
-                Tell me about your project
+                Reach out
               </h3>
               <p className="text-xs text-white/40">
-                Fill in the details and it'll open WhatsApp with your message pre-filled
+                Fill in the details and it&apos;ll open WhatsApp with your message pre-filled
               </p>
 
               <div className="grid gap-4 md:grid-cols-2">
@@ -232,42 +221,24 @@ export function Contact() {
                 />
               </div>
 
-              <div className="grid gap-4 md:grid-cols-2">
-                <div>
-                  <label className="text-xs font-medium text-white/60">Project type</label>
-                  <select
-                    value={form.type}
-                    onChange={(e) => setForm({ ...form, type: e.target.value })}
-                    className="mt-2 w-full appearance-none rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm transition-all focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20 hover:border-white/20"
-                  >
-                    {projectTypes.map((t) => (
-                      <option key={t} value={t} className="bg-elevated">
-                        {t}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="text-xs font-medium text-white/60">
-                    Estimated budget
-                  </label>
-                  <select
-                    value={form.budget}
-                    onChange={(e) => setForm({ ...form, budget: e.target.value })}
-                    className="mt-2 w-full appearance-none rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm transition-all focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20 hover:border-white/20"
-                  >
-                    {budgets.map((b) => (
-                      <option key={b} value={b} className="bg-elevated">
-                        {b}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+              <div>
+                <label className="text-xs font-medium text-white/60">What&apos;s this about?</label>
+                <select
+                  value={form.type}
+                  onChange={(e) => setForm({ ...form, type: e.target.value })}
+                  className="mt-2 w-full appearance-none rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm transition-all focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20 hover:border-white/20"
+                >
+                  {inquiryTypes.map((t) => (
+                    <option key={t} value={t} className="bg-elevated">
+                      {t}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div>
                 <label className="text-xs font-medium text-white/60">
-                  Project details *
+                  Details *
                 </label>
                 <textarea
                   required
@@ -275,7 +246,7 @@ export function Contact() {
                   value={form.message}
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
                   className="mt-2 w-full resize-none rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm transition-all placeholder:text-white/30 focus:border-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500/20 hover:border-white/20"
-                  placeholder="What are you building? What's the timeline? What problem are you solving?"
+                  placeholder="Tell me about the role or opportunity — the team, the stack, and what you're looking for."
                 />
               </div>
 
@@ -382,7 +353,7 @@ export function Contact() {
                 <MessageCircle size={18} className="mt-0.5 shrink-0 text-emerald-400" />
                 <p className="text-sm leading-relaxed text-white/80">
                   <span className="font-semibold text-emerald-300">Prefer WhatsApp? </span>
-                  The form above sends your inquiry straight to WhatsApp — or{" "}
+                  The form above sends your message straight to WhatsApp — or{" "}
                   <a
                     href={personal.whatsapp}
                     target="_blank"

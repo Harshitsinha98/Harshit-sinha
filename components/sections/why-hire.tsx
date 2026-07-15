@@ -12,7 +12,7 @@ export function WhyHire() {
         <SectionHeading
           eyebrow="Why work with me"
           title="Built for outcomes"
-          description="Six reasons clients and teams keep coming back."
+          description="Six reasons I'd add value to your team from day one."
         />
 
         <div className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3">

@@ -9,9 +9,9 @@ export function Testimonials() {
     <section className="relative py-32">
       <div className="mx-auto max-w-3xl px-6">
         <SectionHeading
-          eyebrow="Testimonials"
-          title="Your review could be first"
-          description="I'm early into building a public track record — the products are live and working, the words from clients are on their way."
+          eyebrow="References"
+          title="References on request"
+          description="The products are live and the impact is real. Detailed references from managers and collaborators are available on request."
         />
 
         <motion.div
@@ -35,16 +35,16 @@ export function Testimonials() {
             </div>
 
             <p className="mx-auto mt-6 max-w-xl font-display text-xl font-light leading-relaxed text-white/70 md:text-2xl">
-              &ldquo;This space is reserved for the first client who ships something great with
-              me.&rdquo;
+              &ldquo;Happy to connect you with managers and teammates I&apos;ve shipped
+              production work with.&rdquo;
             </p>
-            <p className="mt-4 text-sm text-white/40">— could be you</p>
+            <p className="mt-4 text-sm text-white/40">— just ask</p>
 
             <Link
               href="#contact"
               className="group mt-10 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-3.5 text-sm font-medium shadow-lg shadow-purple-500/20 transition hover:shadow-2xl hover:shadow-purple-500/40"
             >
-              Start a project
+              Get in touch
               <ArrowUpRight size={16} className="transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>

@@ -164,7 +164,7 @@ export function Navbar() {
               href="/contact"
               className="block rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 px-5 py-2 text-sm font-medium shadow-md shadow-purple-500/20 transition-shadow hover:shadow-lg hover:shadow-purple-500/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-300"
             >
-              Let's Build
+              Get in Touch
             </Link>
           </motion.div>
 
@@ -263,7 +263,7 @@ export function Navbar() {
                   onClick={() => setOpen(false)}
                   className="mt-2 block rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 px-4 py-3 text-center font-medium shadow-md shadow-purple-500/20"
                 >
-                  Hire Me
+                  Get in Touch
                 </Link>
               </motion.div>
             </motion.div>

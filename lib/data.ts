@@ -11,10 +11,10 @@ export const personal = {
 };
 
 export const trustStats = [
-  { label: "Years Building", value: 3, suffix: "+" },
-  { label: "Active Clients", value: 3, suffix: "" },
+  { label: "Years Experience", value: 3, suffix: "+" },
   { label: "Products Shipped", value: 5, suffix: "+" },
-  { label: "In Pipeline", value: 4, suffix: "" },
+  { label: "Infra Nodes Managed", value: 150, suffix: "+" },
+  { label: "Uptime Delivered", value: 99, suffix: ".9%" },
 ];
 
 export const skills = {

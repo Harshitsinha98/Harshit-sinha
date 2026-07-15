@@ -204,7 +204,7 @@ export function Hero() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              <span className="text-white/70">Available for new projects</span>
+              <span className="text-white/70">Open to full-time roles</span>
               <span className="text-white/20">·</span>
               <Sparkles size={12} className="text-purple-400" />
               <span className="text-white/70">Software Engineer @ Capgemini</span>
@@ -294,7 +294,7 @@ export function Hero() {
                 href="/contact"
                 className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] px-8 py-4 text-sm font-semibold backdrop-blur-xl transition-all duration-300 hover:scale-[1.03] hover:border-white/20 hover:bg-white/[0.08] active:scale-[0.98]"
               >
-                <span className="relative z-10">Hire Me</span>
+                <span className="relative z-10">Get in Touch</span>
                 <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
               </Link>
 

@@ -39,7 +39,7 @@ const intents: Intent[] = [
     id: "tech",
     keywords: ["tech stack", "stack", "technologies", "tools", "frameworks", "languages", "what do you use", "tech"],
     answer: `Stack in one line → Frontend: Next.js, React, TypeScript, Tailwind, Framer Motion. Backend: Node.js, Express, NestJS, Java, Spring Boot. DB: PostgreSQL, MongoDB, MySQL, Redis, Prisma. Cloud: AWS, Azure, Vercel, Docker, CI/CD. AI & Automation: Python, OpenAI API, LangChain, RPA, n8n.`,
-    followups: ["skills", "automation work", "how do I hire?"],
+    followups: ["skills", "automation work", "how do I reach him?"],
   },
   {
     id: "projects",
@@ -61,31 +61,31 @@ const intents: Intent[] = [
     id: "p-lead",
     keywords: ["lead management", "lead", "crm", "sales", "erp", "sns-ads", "pipeline platform"],
     answer: projectAnswer("lead-management"),
-    followups: ["other projects", "tech stack", "how do I hire?"],
+    followups: ["other projects", "tech stack", "how do I reach him?"],
   },
   {
     id: "p-breakiq",
     keywords: ["breakiq", "break iq", "workforce", "monitoring", "break management", "supervisor"],
     answer: projectAnswer("breakiq"),
-    followups: ["other projects", "the lead management system", "how do I hire?"],
+    followups: ["other projects", "the lead management system", "how do I reach him?"],
   },
   {
     id: "p-tax",
     keywords: ["tax", "saran", "consultant", "consultancy", "accounting"],
     answer: projectAnswer("saran-tax"),
-    followups: ["other projects", "the temple website", "how do I hire?"],
+    followups: ["other projects", "the temple website", "how do I reach him?"],
   },
   {
     id: "p-temple",
     keywords: ["temple", "hanuman", "pragat", "devotee", "darshan", "religious", "donation"],
     answer: projectAnswer("pragat-hanuman"),
-    followups: ["other projects", "the jewelry store", "how do I hire?"],
+    followups: ["other projects", "the jewelry store", "how do I reach him?"],
   },
   {
     id: "p-jewelry",
     keywords: ["jewelry", "jewellery", "jewel", "ecommerce", "ecom", "store", "shop"],
     answer: projectAnswer("jewelry-ecom"),
-    followups: ["other projects", "services offered", "how do I hire?"],
+    followups: ["other projects", "what he can do", "how do I reach him?"],
   },
   {
     id: "experience",
@@ -94,61 +94,61 @@ const intents: Intent[] = [
       experience
         .map((e) => `• ${e.role} @ ${e.company} (${e.period}) — ${e.bullets[0]}`)
         .join("\n") + `\n\n3+ years building production software end-to-end.`,
-    followups: ["what about Capgemini?", "skills", "how do I hire?"],
+    followups: ["what about Capgemini?", "skills", "how do I reach him?"],
   },
   {
     id: "capgemini",
     keywords: ["capgemini", "current job", "current role", "day job", "9 to 5"],
     answer: `At Capgemini (Apr 2024–present) Harshit is a Technical Operations Lead — designing Python & RPA automation, building analytics pipelines, leading AI/chatbot integrations, and coordinating with L3 engineering on critical incidents across global client accounts.`,
-    followups: ["experience", "automation work", "how do I hire?"],
+    followups: ["experience", "automation work", "how do I reach him?"],
   },
   {
     id: "automation",
     keywords: ["automation", "automate", "rpa", "python", "n8n", "bot", "script", "workflow", "ai integration"],
     answer: `Automation is a core focus: Python scripting, RPA tools, n8n workflow automation, PowerShell, and AI/chatbot integrations deployed at enterprise scale — cutting manual effort significantly and surfacing KPI trends across operations.`,
-    followups: ["tech stack", "services offered", "how do I hire?"],
+    followups: ["tech stack", "what he can do", "how do I reach him?"],
   },
   {
     id: "services",
-    keywords: ["service", "services", "offer", "help with", "do for me", "provide", "build for me"],
-    answer: `What Harshit builds for clients: custom web apps, business automation, SaaS MVPs, ecommerce platforms, marketing/business websites, and ongoing engineering partnerships — full ownership from discovery to deployment.`,
-    followups: ["how do I hire?", "show me projects", "pricing / budget"],
+    keywords: ["service", "services", "offer", "help with", "do for me", "provide", "build for me", "what can he do", "looking for", "role", "roles", "position", "fit"],
+    answer: `What Harshit brings to a team: full-stack web apps (Next.js / React + Node), scalable backends and APIs, cloud + CI/CD, and Python / RPA automation — with full ownership from design to production. Open to full-time software engineering roles (and select freelance work).`,
+    followups: ["how do I reach him?", "show me projects", "tech stack"],
   },
   {
     id: "hire",
-    keywords: ["hire", "contact", "reach", "email", "get in touch", "connect", "talk", "work together", "available", "availability"],
-    answer: `Currently accepting new projects ✅\n\n📧 ${personal.email}\n📱 ${personal.phone}\n💬 WhatsApp: ${personal.whatsapp}\n🔗 LinkedIn: ${personal.linkedin}\n\nOr just use the contact form below.`,
-    followups: ["pricing / budget", "services offered", "resume"],
+    keywords: ["hire", "contact", "reach", "email", "get in touch", "connect", "talk", "work together", "available", "availability", "recruit", "recruiter", "opportunity", "job", "interview"],
+    answer: `Open to full-time roles and select freelance ✅\n\n📧 ${personal.email}\n📱 ${personal.phone}\n🔗 LinkedIn: ${personal.linkedin}\n💬 WhatsApp: ${personal.whatsapp}\n\nOr just use the contact form below.`,
+    followups: ["what's he looking for?", "resume", "experience"],
   },
   {
     id: "pricing",
-    keywords: ["price", "pricing", "cost", "rate", "rates", "budget", "charge", "quote", "how much"],
-    answer: `Pricing depends on scope — Harshit works on fixed-scope builds (MVPs, websites, automations) as well as ongoing monthly engineering partnerships. Best approach: share what you're building via the contact form and you'll get a tailored quote.`,
-    followups: ["how do I hire?", "services offered", "show me projects"],
+    keywords: ["price", "pricing", "cost", "rate", "rates", "budget", "charge", "quote", "how much", "salary", "compensation", "ctc", "notice period"],
+    answer: `Harshit is primarily looking for full-time software engineering roles — compensation and notice period are best discussed directly, based on the role. For freelance work he takes on fixed-scope engagements. Reach out via the contact form to talk specifics.`,
+    followups: ["how do I reach him?", "experience", "show me projects"],
   },
   {
     id: "resume",
     keywords: ["resume", "cv", "download", "pdf"],
     answer: `You can view or download Harshit's full resume from the Resume section above (or the "Resume" button in the nav). It covers experience, skills, education, and certifications.`,
-    followups: ["experience", "education", "how do I hire?"],
+    followups: ["experience", "education", "how do I reach him?"],
   },
   {
     id: "education",
     keywords: ["education", "degree", "college", "university", "study", "studied", "graduate", "btech", "b.tech"],
     answer: `${education[0].degree} — ${education[0].school} (${education[0].year}). Plus certifications: ${certifications.join(", ")}.`,
-    followups: ["experience", "skills", "how do I hire?"],
+    followups: ["experience", "skills", "how do I reach him?"],
   },
   {
     id: "location",
     keywords: ["location", "where", "based", "country", "city", "remote", "timezone"],
-    answer: `Harshit is based in India and works remotely with clients globally. Comfortable across timezones for async or live collaboration.`,
-    followups: ["how do I hire?", "experience", "services offered"],
+    answer: `Harshit is based in India and works remotely with teams globally — open to remote roles and relocation. Comfortable across timezones for async or live collaboration.`,
+    followups: ["how do I reach him?", "experience", "what he can do"],
   },
   {
     id: "why",
     keywords: ["why", "why you", "why hire", "why harshit", "what makes", "different", "better", "stand out"],
     answer: `Why Harshit: product-first mindset (ships outcomes, not just features), clean scalable architecture, fast execution with tight feedback loops, and every technical decision tied to a measurable business result — backed by 5+ live products.`,
-    followups: ["show me projects", "skills", "how do I hire?"],
+    followups: ["show me projects", "skills", "how do I reach him?"],
   },
 ];
 
@@ -164,14 +164,14 @@ function respond(query: string): { text: string; followups: string[] } {
   // greetings / thanks — short circuit
   if (words.length <= 3 && greetings.some((g) => words.includes(g))) {
     return {
-      text: "Hey! 👋 I'm Harshit's assistant. Ask me about his skills, any project, experience, automation work, pricing, or how to hire him.",
-      followups: ["skills", "show me projects", "how do I hire?"],
+      text: "Hey! 👋 I'm Harshit's assistant. Ask me about his skills, any project, experience, automation work, what he's looking for, or how to reach him.",
+      followups: ["skills", "show me projects", "how do I reach him?"],
     };
   }
   if (thanks.some((t) => q.includes(` ${t} `))) {
     return {
       text: "Anytime! 🙌 Anything else you'd like to know — projects, experience, or how to get in touch?",
-      followups: ["show me projects", "how do I hire?", "why Harshit?"],
+      followups: ["show me projects", "how do I reach him?", "why Harshit?"],
     };
   }
 
@@ -198,7 +198,7 @@ function respond(query: string): { text: string; followups: string[] } {
   // graceful fallback with routing
   return {
     text: "Hmm, I don't have a canned answer for that one — but I know a lot about Harshit. Try one of these, or ask about a specific project by name:",
-    followups: ["skills", "show me projects", "experience", "how do I hire?"],
+    followups: ["skills", "show me projects", "experience", "how do I reach him?"],
   };
 }
 
@@ -208,8 +208,8 @@ export function AIAssistant() {
   const [messages, setMessages] = useState<Msg[]>([
     {
       role: "bot",
-      text: "Hi 👋 I'm Harshit's portfolio assistant. Ask me anything — skills, any project, experience, automation, pricing, or how to hire him.",
-      followups: ["What are his skills?", "Show me projects", "How do I hire?"],
+      text: "Hi 👋 I'm Harshit's portfolio assistant. Ask me anything — skills, any project, experience, automation, what he's looking for, or how to reach him.",
+      followups: ["What are his skills?", "Show me projects", "How do I reach him?"],
     },
   ]);
   const [input, setInput] = useState("");

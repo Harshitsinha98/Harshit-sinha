@@ -15,7 +15,8 @@ export function Footer() {
               <span className="font-display text-lg">Harshit Sinha</span>
             </div>
             <p className="mt-4 max-w-sm text-sm text-white/50">
-              Full Stack Engineer building scalable business software and modern digital products.
+              Full Stack Software Engineer shipping scalable web apps, automation, and
+              production backends. Open to full-time roles.
             </p>
           </div>
 
@@ -37,14 +38,14 @@ export function Footer() {
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-wider text-white/40">Available For</h4>
             <p className="mt-4 text-sm text-white/70">
-              Freelance · Contract · Founding Engineer roles
+              Full-time roles · Contract · Select freelance
             </p>
             <div className="mt-3 flex items-center gap-2 text-sm text-emerald-400">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              Accepting new projects
+              Open to opportunities
             </div>
           </div>
         </div>
