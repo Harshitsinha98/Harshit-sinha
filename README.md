@@ -37,13 +37,51 @@ Then open http://localhost:3000.
 
 ```
 app/          Routes and pages (App Router)
+  api/        Backend endpoints (testimonials, admin auth)
+  admin/      Password-protected admin pages
 components/   UI, layout, and page section components
-lib/          Shared data, constants, and utilities
+lib/          Shared data, constants, utilities, and the testimonials store
 public/       Static assets (images, resume.pdf)
+scripts/      One-off scripts (e.g. resume PDF generator)
 ```
 
 Site content (projects, experience, skills, contact details) lives in
 `lib/data.ts`, so most updates are a single-file edit.
+
+## Testimonials system
+
+Visitors can submit a recommendation at `/testimonial`. It publishes to the
+homepage automatically — no email, no manual copy-pasting into `data.ts`.
+You can hide or permanently delete any entry (fake, spam, or otherwise) from
+a private admin page.
+
+**How it works:**
+- `POST /api/testimonials` saves a new testimonial to Redis and publishes it
+  immediately (unless `REQUIRE_TESTIMONIAL_APPROVAL=true`, see below)
+- `GET /api/testimonials` returns published testimonials; the homepage
+  fetches this client-side, so new ones show up without a redeploy
+- `/admin/login` — log in with `ADMIN_PASSWORD`
+- `/admin/testimonials` — see every submission, hide/unhide it, or delete
+  it permanently
+
+### One-time setup (required for this to work in production)
+
+1. **Add a Redis database.** In the Vercel dashboard: your project ->
+   **Storage** tab -> **Create Database** -> pick a Redis provider (Upstash
+   is the default recommendation as of 2026, since Vercel KV was retired).
+   Connecting it to this project automatically sets `KV_REST_API_URL` and
+   `KV_REST_API_TOKEN` as environment variables — no code changes needed.
+2. **Set an admin password.** Project -> **Settings** -> **Environment
+   Variables** -> add `ADMIN_PASSWORD` with a value only you know. This is
+   the password for `/admin/login`.
+3. **Redeploy** so the new environment variables take effect.
+4. *(Optional)* Set `REQUIRE_TESTIMONIAL_APPROVAL=true` if you'd rather
+   review each testimonial before it goes live, instead of it publishing
+   immediately. Leave it unset/`false` for auto-publish (the default).
+
+For local development, copy `.env.example` to `.env.local` and fill in the
+same three values (get the Redis ones from the Vercel Storage tab, or run
+`vercel env pull .env.local` if you have the Vercel CLI linked).
 
 ## Deployment
 

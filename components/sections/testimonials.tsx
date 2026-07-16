@@ -1,9 +1,10 @@
 "use client";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Quote, ArrowUpRight, Star, Linkedin } from "lucide-react";
 import { SectionHeading } from "@/components/shared/section-heading";
-import { testimonials } from "@/lib/data";
+import type { StoredTestimonial } from "@/lib/testimonial-types";
 
 function EmptyState() {
   return (
@@ -52,10 +53,21 @@ function EmptyState() {
 }
 
 export function Testimonials() {
-  const hasTestimonials = testimonials.length > 0;
+  // Fetched client-side (not from lib/data.ts) so new submissions show up
+  // immediately without needing a rebuild/redeploy.
+  const [testimonials, setTestimonials] = useState<StoredTestimonial[] | null>(null);
+
+  useEffect(() => {
+    fetch("/api/testimonials")
+      .then((res) => res.json())
+      .then((data) => setTestimonials(data.testimonials ?? []))
+      .catch(() => setTestimonials([]));
+  }, []);
+
+  const hasTestimonials = !!testimonials && testimonials.length > 0;
 
   return (
-    <section className="relative py-32">
+    <section id="testimonials" className="relative py-32">
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading
           eyebrow="References"
@@ -70,9 +82,9 @@ export function Testimonials() {
         {hasTestimonials ? (
           <>
             <div className="mt-14 grid gap-6 md:grid-cols-2">
-              {testimonials.map((t, i) => (
+              {testimonials!.map((t, i) => (
                 <motion.div
-                  key={t.name + t.company}
+                  key={t.id}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}

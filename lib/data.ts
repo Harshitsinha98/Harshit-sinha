@@ -247,28 +247,10 @@ export const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
-// ─── Testimonials: only real, manually-added entries ───────────────────────
+// ─── Testimonials ───────────────────────────────────────────────────────────
 //
-// There's no way to auto-pull LinkedIn recommendations (LinkedIn shut that
-// API down years ago, and no legitimate integration exists). Instead:
-// managers/clients submit a testimonial through the form on the site, it
-// lands in Harshit's inbox as an email, and — after a quick read-through —
-// he adds it here as one object. That's it; the site picks it up automatically.
-//
-// To add one: copy the shape below and push a new entry.
-// {
-//   name: "Full Name",
-//   role: "Their Title",
-//   company: "Their Company",
-//   quote: "The testimonial text, kept as-is from what they sent.",
-//   linkedinUrl: "https://linkedin.com/in/their-profile", // optional
-// }
-export type Testimonial = {
-  name: string;
-  role: string;
-  company: string;
-  quote: string;
-  linkedinUrl?: string;
-};
-
-export const testimonials: Testimonial[] = [];
+// Testimonials are no longer stored here. Submissions go through
+// /testimonial -> POST /api/testimonials -> Redis, and publish to the
+// homepage automatically (fetched live from GET /api/testimonials).
+// Manage/remove entries at /admin/testimonials. See lib/testimonials-store.ts
+// and README.md for the full setup.
