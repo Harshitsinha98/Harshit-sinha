@@ -162,17 +162,17 @@ export const experience = [
       "Design, build, and ship web products end-to-end using AI-assisted development — from idea and UX to integrations and deployment",
       "Shipped Saran Tax Solution (live, generating real inbound leads); built Lead Management, BreakIQ, a temple site, and a jewelry store (deployed, in pre-launch)",
       "Own the full journey: product decisions, third-party integrations (payments, shipping, CMS), and deployment on Vercel",
-      "Currently deepening software engineering fundamentals to build more of it independently",
+      "Actively building core software engineering fundamentals alongside AI-assisted delivery, to own more of the stack independently over time",
     ],
   },
   {
     company: "Capgemini",
-    role: "Technical Operations Lead",
+    role: "Software Engineer / Analyst",
     period: "Apr 2024 — Present",
     location: "India",
     bullets: [
-      "Build and maintain automation workflows (Python & RPA) that cut repetitive manual effort",
-      "Create reporting and analytics with Python and Excel to surface operational KPI trends",
+      "Build and maintain Python & RPA automation workflows that cut repetitive manual effort across operations",
+      "Write scripts and reporting pipelines (Python, Excel) to surface operational KPI trends for stakeholders",
       "Support AI / chatbot integration efforts to improve end-user resolution journeys",
       "Coordinate with L3 and cross-functional teams on incident resolution across client accounts",
     ],
@@ -246,3 +246,29 @@ export const navLinks = [
   { label: "Resume", href: "#resume" },
   { label: "Contact", href: "#contact" },
 ];
+
+// ─── Testimonials: only real, manually-added entries ───────────────────────
+//
+// There's no way to auto-pull LinkedIn recommendations (LinkedIn shut that
+// API down years ago, and no legitimate integration exists). Instead:
+// managers/clients submit a testimonial through the form on the site, it
+// lands in Harshit's inbox as an email, and — after a quick read-through —
+// he adds it here as one object. That's it; the site picks it up automatically.
+//
+// To add one: copy the shape below and push a new entry.
+// {
+//   name: "Full Name",
+//   role: "Their Title",
+//   company: "Their Company",
+//   quote: "The testimonial text, kept as-is from what they sent.",
+//   linkedinUrl: "https://linkedin.com/in/their-profile", // optional
+// }
+export type Testimonial = {
+  name: string;
+  role: string;
+  company: string;
+  quote: string;
+  linkedinUrl?: string;
+};
+
+export const testimonials: Testimonial[] = [];

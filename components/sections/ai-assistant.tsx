@@ -99,7 +99,7 @@ const intents: Intent[] = [
   {
     id: "capgemini",
     keywords: ["capgemini", "current job", "current role", "day job", "9 to 5"],
-    answer: `At Capgemini (Apr 2024–present) Harshit is a Technical Operations Lead — designing Python & RPA automation, building analytics pipelines, leading AI/chatbot integrations, and coordinating with L3 engineering on critical incidents across global client accounts.`,
+    answer: `At Capgemini (Apr 2024–present) Harshit is a Software Engineer / Analyst — building Python & RPA automation, writing reporting pipelines, supporting AI/chatbot integrations, and coordinating with L3 engineering on incidents across client accounts.`,
     followups: ["experience", "automation work", "how do I reach him?"],
   },
   {
