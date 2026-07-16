@@ -67,10 +67,13 @@ a private admin page.
 ### One-time setup (required for this to work in production)
 
 1. **Add a Redis database.** In the Vercel dashboard: your project ->
-   **Storage** tab -> **Create Database** -> pick a Redis provider (Upstash
-   is the default recommendation as of 2026, since Vercel KV was retired).
-   Connecting it to this project automatically sets `KV_REST_API_URL` and
-   `KV_REST_API_TOKEN` as environment variables — no code changes needed.
+   **Storage** tab -> **Browse Storage** -> **Upstash** -> choose **Redis**
+   (there's also a plain "Redis" / Redis Cloud option at the top of that
+   list — don't pick that one, it uses a different connection format).
+   Connecting it to this project automatically sets either
+   `KV_REST_API_URL`/`KV_REST_API_TOKEN` or `UPSTASH_REDIS_REST_URL`/
+   `UPSTASH_REDIS_REST_TOKEN` as environment variables (this app accepts
+   both pairs) — no code changes needed.
 2. **Set an admin password.** Project -> **Settings** -> **Environment
    Variables** -> add `ADMIN_PASSWORD` with a value only you know. This is
    the password for `/admin/login`.
