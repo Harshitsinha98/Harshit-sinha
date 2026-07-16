@@ -15,7 +15,7 @@ export function TrustBar() {
       />
 
       <div className="relative mx-auto max-w-7xl px-6">
-        <div className="grid grid-cols-2 gap-y-10 md:grid-cols-4 md:gap-y-0">
+        <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-3 sm:gap-y-0">
           {trustStats.map((s, i) => (
             <motion.div
               key={s.label}
@@ -24,7 +24,7 @@ export function TrustBar() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
               className={`relative text-center ${
-                i !== 0 ? "md:border-l md:border-white/[0.06]" : ""
+                i !== 0 ? "sm:border-l sm:border-white/[0.06]" : ""
               }`}
             >
               <div className="font-display text-4xl font-bold text-gradient transition-transform duration-500 hover:scale-105 md:text-5xl">

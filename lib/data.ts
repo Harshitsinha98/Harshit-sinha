@@ -10,11 +10,14 @@ export const personal = {
   resumeUrl: "/resume.pdf",
 };
 
+// Top-of-page trust bar: kept to builder-relevant, verifiable numbers only.
+// The telecom ops stats (150+ tower sites, 99.9% uptime) are real, but they
+// belong in the About/Experience story where there's context — showing them
+// here at a glance reads as "is this a software builder or a NOC tech?"
 export const trustStats = [
   { label: "Years Experience", value: 3, suffix: "+" },
   { label: "Products Built", value: 5, suffix: "+" },
-  { label: "Towers Managed", value: 150, suffix: "+" },
-  { label: "Uptime Delivered", value: 99, suffix: ".9%" },
+  { label: "Public Repos", value: 12, suffix: "+" },
 ];
 
 export const skills = {
